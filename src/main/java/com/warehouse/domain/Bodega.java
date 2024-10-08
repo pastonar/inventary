@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 
+
+
 @Entity
 @Table(name = "bodega")
 public class Bodega implements Serializable { 

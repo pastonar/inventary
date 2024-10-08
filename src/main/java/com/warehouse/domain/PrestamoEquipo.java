@@ -20,13 +20,6 @@ public class PrestamoEquipo implements Serializable {
 	@Column(name="idresponsable")
 	private Long idresponsable;
 	
-	/*
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "periodocalibracion") 
-	private PeriodoCalibracion periodoCalibracion;
-	*/
-	
-	
 	@Column(name="idrecibe")
 	private Long idrecibe;
 	
