@@ -12,8 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 
 import com.warehouse.domain.productos.EstadoProducto;
 import com.warehouse.domain.productos.Presentacion;
@@ -31,9 +30,9 @@ public class Producto implements Cloneable{
 	@Column(name="DESCRIPCION")
 	private String	descripcion	= ""; 
     
-	@Enumerated(EnumType.STRING)
-	@Column(name="ESTADO_PRODUCTO" )
-	private EstadoProducto	estadoProducto;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_ESTADO_PRODUCTO")
+	private EstadoProducto estadoProducto ;
 	
 	@Column(name="EXISTENCIAS")
 	private double 	existencias	= 0;
@@ -59,6 +58,16 @@ public class Producto implements Cloneable{
 	private Presentacion presentacion;
 	
 		
+	
+	
+	public Producto() {
+		this.existencias = 0;
+		this.cantidad = 0;
+		this.costoUnidad = 0;
+		this.precioPresentacion = 0;
+		this.precioUnidad = 0;
+	}
+
 	@Override
 	public String toString() {
 		return  descripcion + " x "+presentacion+" de "+ cantidad + unidad;

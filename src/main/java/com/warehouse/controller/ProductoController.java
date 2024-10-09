@@ -27,7 +27,6 @@ import org.springframework.http.HttpHeaders;
 
 import com.warehouse.domain.productos.Producto;
 import com.warehouse.exception.ResourceNotFoundException;
-import com.warehouse.repository.EquipoRepository;
 import com.warehouse.repository.ProductoRepository;
 
 import jakarta.validation.Valid;
@@ -49,7 +48,7 @@ throw new ResourceNotFoundException("Producto con  id No." + productoId + " NO E
 
 // Recuperar todos los equipos	OK
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-@RequestMapping(value="/Producto", method=RequestMethod.GET)
+@RequestMapping(value="/producto", method=RequestMethod.GET)
 public ResponseEntity<Iterable<Producto>> getAllProductos() {
 Iterable<Producto> allProductos = productoRepository.findAll();
 return new ResponseEntity<>(allProductos, HttpStatus.OK);

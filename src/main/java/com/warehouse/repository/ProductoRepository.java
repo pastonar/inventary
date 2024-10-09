@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 //import com.warehouse.domain.productos.Producto;
 
 import com.warehouse.domain.productos.Producto;
-import com.warehouse.domain.productos.Producto;
+
 
 public interface ProductoRepository extends CrudRepository<Producto, Long> {
 

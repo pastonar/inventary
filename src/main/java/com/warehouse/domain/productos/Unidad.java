@@ -51,6 +51,16 @@ public int getIdunidad() {
 		this.idunidad = idunidad;
 	}
 
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
 
 	public Object clone(){
         Object obj=null;
