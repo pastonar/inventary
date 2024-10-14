@@ -17,5 +17,5 @@ public interface ProductoRepository extends CrudRepository<Producto, Long> {
 	 List<Producto> findAll() ;
 	
 	@Query("select e from Producto  e where e.descripcion LIKE :descripcion%")
-	List<Producto> findAllBycodigointerno(String descripcion) ;
+	List<Producto> findAllByDescripcion(String descripcion) ;
 }

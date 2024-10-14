@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,8 +48,9 @@ throw new ResourceNotFoundException("Producto con  id No." + productoId + " NO E
  
 
 // Recuperar todos los equipos	OK
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-@RequestMapping(value="/producto", method=RequestMethod.GET)
+//@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//@RequestMapping(value="/productos", method=RequestMethod.GET)
+@GetMapping("/productos")
 public ResponseEntity<Iterable<Producto>> getAllProductos() {
 Iterable<Producto> allProductos = productoRepository.findAll();
 return new ResponseEntity<>(allProductos, HttpStatus.OK);
@@ -57,9 +59,9 @@ return new ResponseEntity<>(allProductos, HttpStatus.OK);
 
 //Recuperar equipo por serial	OK @Secured({ "ROLE_VIEWER", "ROLE_EDITOR" })
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-@RequestMapping(value="/producto1", method=RequestMethod.GET)
-public ResponseEntity<Iterable<Producto>> getAllProductosBySerial(@RequestParam String codigointerno) {
-	Iterable<Producto> allProductos = productoRepository.findAllBycodigointerno(codigointerno) ;
+@RequestMapping(value="/productosXdescripcion", method=RequestMethod.GET)
+public ResponseEntity<Iterable<Producto>> getAllProductosByDescripcion(@RequestParam String descripcion) {
+	Iterable<Producto> allProductos = productoRepository.findAllByDescripcion(descripcion) ;
 return new ResponseEntity<>(allProductos, HttpStatus.OK);
 }
 
@@ -75,7 +77,7 @@ public ResponseEntity<?> getProducto(@PathVariable Long productoId) {
 }
 //Crear un nuevo equipo
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@PostMapping("/productos")
+@PostMapping("/productoNuevo")
 //@RequestMapping(value="/equipos", method=RequestMethod.POST)
 public ResponseEntity<?> createProducto(@Valid @RequestBody Producto producto) {
 	producto = productoRepository.save(producto);

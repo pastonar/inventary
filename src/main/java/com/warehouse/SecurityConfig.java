@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,14 +41,23 @@ public class SecurityConfig {
 
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtUtils);
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager);
-        jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+        //jwtAuthenticationFilter.setFilterProcessesUrl("/login");
         
         return httpSecurity
-                .csrf(config -> config.disable())
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/hello").permitAll();
-                    auth.anyRequest().authenticated();
+                //.csrf(config -> config.disable())
+        		.csrf(AbstractHttpConfigurer::disable)
+        		.authorizeHttpRequests(auth -> {
+        			auth.requestMatchers("/productos").permitAll();
+        			auth.requestMatchers("/unidades").permitAll();
+        			auth.requestMatchers("/presentaciones").permitAll();
+        			auth.requestMatchers("/login").permitAll();
+                	auth.anyRequest().authenticated()
+                    ;
                 })
+				
+				/*
+				 * .formLogin(form->form .loginPage("/login").permitAll())
+				 */
                 .sessionManagement(session -> {
                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 })

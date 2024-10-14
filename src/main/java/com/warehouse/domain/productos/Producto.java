@@ -40,8 +40,8 @@ public class Producto implements Cloneable{
 	@Column(name="CANTIDAD")
 	private double 	cantidad	= 0;
 
-	@Column(name="COSTO_UNIDAD")
-	private double 	costoUnidad	= 0;
+	@Column(name="COSTO_PRESENTACION")
+	private double 	costoPresentacion	= 0;
 
 	@Column(name="PRECIO_PRESENTACION")
 	private double 	precioPresentacion	= 0;
@@ -63,7 +63,7 @@ public class Producto implements Cloneable{
 	public Producto() {
 		this.existencias = 0;
 		this.cantidad = 0;
-		this.costoUnidad = 0;
+		this.costoPresentacion = 0;
 		this.precioPresentacion = 0;
 		this.precioUnidad = 0;
 	}
@@ -113,12 +113,14 @@ public class Producto implements Cloneable{
 		this.cantidad = cantidad;
 	}
 
-	public double getCostoUnidad() {
-		return costoUnidad;
+	
+
+	public double getCostoPresentacion() {
+		return costoPresentacion;
 	}
 
-	public void setCostoUnidad(double costoUnidad) {
-		this.costoUnidad = costoUnidad;
+	public void setCostoPresentacion(double costoPresentacion) {
+		this.costoPresentacion = costoPresentacion;
 	}
 
 	public double getPrecioPresentacion() {
