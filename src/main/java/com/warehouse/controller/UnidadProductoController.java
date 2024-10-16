@@ -41,9 +41,9 @@ public class UnidadProductoController {
 	 
 
 	// Recuperar todos los equipos	OK
-	//@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-	//@RequestMapping(value="/productos", method=RequestMethod.GET)
-	@GetMapping("/unidades")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+	@RequestMapping(value="/unidades", method=RequestMethod.GET)
+	//@GetMapping("/unidades")
 	public ResponseEntity<Iterable<Unidad>> getAllUnidad() {
 	Iterable<Unidad> allUnidades = unidadRepository.findAll();
 	return new ResponseEntity<>(allUnidades, HttpStatus.OK);

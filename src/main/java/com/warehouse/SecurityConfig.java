@@ -47,9 +47,9 @@ public class SecurityConfig {
                 //.csrf(config -> config.disable())
         		.csrf(AbstractHttpConfigurer::disable)
         		.authorizeHttpRequests(auth -> {
-        			auth.requestMatchers("/productos").permitAll();
-        			auth.requestMatchers("/unidades").permitAll();
-        			auth.requestMatchers("/presentaciones").permitAll();
+        			//auth.requestMatchers("/productos").permitAll();
+        			//auth.requestMatchers("/unidades").permitAll();
+        			//auth.requestMatchers("/presentaciones").permitAll();
         			auth.requestMatchers("/login").permitAll();
                 	auth.anyRequest().authenticated()
                     ;

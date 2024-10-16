@@ -3,11 +3,13 @@ package com.warehouse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,9 +30,14 @@ public class LoginController {
 	  
 	  @Autowired private JwtService jwtService;
 	  
-	  @PostMapping("/login") public ResponseEntity<AuthenticationResponse>
+	  @PostMapping("/login") 
+	  @CrossOrigin(origins ="http://localhost:8080")
+	  @PreAuthorize("hasRole('ROLE_ADMIN')")
+
+		  public ResponseEntity<AuthenticationResponse>
 	  createToken(@RequestBody AuthenticationRequest request) { 
 	try { // Autenticar las credenciales del usuario manualmente 
+		System.out.println(request.getUsername());
 		authenticationManager.authenticate(
 	  new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()) ); } 
 	  catch (AuthenticationException e) { 

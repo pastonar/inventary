@@ -41,9 +41,9 @@ public class PresentacionProductoController {
 	 
 
 	// Recuperar todos los equipos	OK
-	//@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-	//@RequestMapping(value="/productos", method=RequestMethod.GET)
-	@GetMapping("/presentaciones")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+	@RequestMapping(value="/presentaciones", method=RequestMethod.GET)
+	//@GetMapping("/presentaciones")
 	public ResponseEntity<Iterable<Presentacion>> getAllPresentacion() {
 	Iterable<Presentacion> allPresentaciones = presentacionRepository.findAll();
 	return new ResponseEntity<>(allPresentaciones, HttpStatus.OK);

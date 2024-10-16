@@ -48,9 +48,9 @@ throw new ResourceNotFoundException("Producto con  id No." + productoId + " NO E
  
 
 // Recuperar todos los equipos	OK
-//@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-//@RequestMapping(value="/productos", method=RequestMethod.GET)
-@GetMapping("/productos")
+@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+@RequestMapping(value="/productos", method=RequestMethod.GET)
+//@GetMapping("/productos")
 public ResponseEntity<Iterable<Producto>> getAllProductos() {
 Iterable<Producto> allProductos = productoRepository.findAll();
 return new ResponseEntity<>(allProductos, HttpStatus.OK);
