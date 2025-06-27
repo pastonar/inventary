@@ -4,9 +4,12 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,43 +19,48 @@ import jakarta.persistence.Table;
 public class Cliente {
 
 	@Id
-	@Column(name = "ID_CLIENTE")
+	@Column(name = "IDCLIENTE")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id_cliente;
+	private int idCliente;
 	
 
 	@Column(name="NIT")
 	private String	nit	= "";   
 	
-	@Column(name="DV")
-   private int 		dv;
-   
 	
 	@Column(name="RAZON_SOCIAL")
-   private String 	razon_social;
+   private String 	razonSocial;
 	
 	@Column(name="DIR_CLIENTE")
-   private String 	dir_cliente;
+   private String 	dirCliente;
 	
-	@Column(name="CEL_CLIENTE")
-   private String 	cel_cliente;
+	@Column(name="CEL_CONTACTO")
+   private String 	celContacto;
 	
-	@Column(name="EMAIL")
-   private String 	email;
+	/*
+	 * @Column(name="EMAIL") private String email;
+	 */
 	
+	@Column(name="ESTADO")
+   private int 	estado = 1;
 	
-	@Column(name="ACTIVO")
-   private Boolean 	activo = true;
+	@Column(name="tipoid")
+	   private int 	tipoId = 1;
    
-	@Column(name="FECHA_INGRESO")
-	   private LocalDate fecingreso;
-
-	public int getId_cliente() {
-		return id_cliente;
+	/*
+	 * @Column(name="FECHA_INGRESO") private LocalDate fecingreso;
+	 */
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID_GRUPO_CLIENTE")
+	private GrupoCliente grupo ;
+	
+	public int getIdCliente() {
+		return idCliente;
 	}
 
-	public void setId_cliente(int id_cliente) {
-		this.id_cliente = id_cliente;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public String getNit() {
@@ -63,63 +71,66 @@ public class Cliente {
 		this.nit = nit;
 	}
 
-	public int getDv() {
-		return dv;
+	public String getRazonSocial() {
+		return razonSocial;
 	}
 
-	public void setDv(int dv) {
-		this.dv = dv;
+	public void setRazonSocial(String razonSocial) {
+		this.razonSocial = razonSocial;
 	}
 
-	public String getRazon_social() {
-		return razon_social;
+	public String getDirCliente() {
+		return dirCliente;
 	}
 
-	public void setRazon_social(String razon_social) {
-		this.razon_social = razon_social;
+	public void setDirCliente(String dirCliente) {
+		this.dirCliente = dirCliente;
 	}
 
-	public String getDir_cliente() {
-		return dir_cliente;
+	public String getCelContacto() {
+		return celContacto;
 	}
 
-	public void setDir_cliente(String dir_cliente) {
-		this.dir_cliente = dir_cliente;
+	public void setCelContacto(String celContacto) {
+		this.celContacto = celContacto;
 	}
 
-	public String getCel_cliente() {
-		return cel_cliente;
+	/*
+	 * public String getEmail() { return email; }
+	 * 
+	 * public void setEmail(String email) { this.email = email; }
+	 */
+
+	public int getEstado() {
+		return estado;
 	}
 
-	public void setCel_cliente(String cel_cliente) {
-		this.cel_cliente = cel_cliente;
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
-	public String getEmail() {
-		return email;
+	/*
+	 * public LocalDate getFecingreso() { return fecingreso; }
+	 * 
+	 * public void setFecingreso(LocalDate fecingreso) { this.fecingreso =
+	 * fecingreso; }
+	 */
+
+	public GrupoCliente getGrupo() {
+		return grupo;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setGrupo(GrupoCliente grupo) {
+		this.grupo = grupo;
 	}
 
-	public Boolean getActivo() {
-		return activo;
+	public int getTipoId() {
+		return tipoId;
 	}
 
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
+	public void setTipoId(int tipoId) {
+		this.tipoId = tipoId;
 	}
 
-	public LocalDate getFecingreso() {
-		return fecingreso;
-	}
-
-	public void setFecingreso(LocalDate fecingreso) {
-		this.fecingreso = fecingreso;
-	}
-	
-	
-	
 	
 }

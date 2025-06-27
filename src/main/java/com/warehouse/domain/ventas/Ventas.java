@@ -1,13 +1,13 @@
 package com.warehouse.domain.ventas;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,28 +26,30 @@ import jakarta.persistence.TemporalType;
 import com.warehouse.domain.clientes.*;
 
 @Entity
-@Table(name = "ventas")
-
+@Table(name = "facturas")
 public class Ventas {
 
 	@Id
 	@Column(name = "ID_FACTURA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int		id_factura 		= 0;
+	private int		id_factura 	= 0;
 
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	@Column(name="FECHA_FACTURA" , length = 10)
-	private Date	fec_factura 		= null;
+	private LocalDate	fec_factura 		= null;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_CLIENTE")
+	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "idcliente")
 	private Cliente 	comprador 	= new Cliente();
+	// persist graba uno nuevo
+	// detach object references an unsaved transient instance - save the transient
+	// merge detach object references an unsaved transient instance - save the transient
+	// refresh detach object references an unsaved transient instance - save the transient
 
-	@Column(name="TOTAL_COMPRAS" , length = 150)
-	private double		total_compras 	 	= 0;
-
-
+	@Column(name="tipo_factura")
+	private int 		tipoFactura    	= 0;
+	
 	@Column(name="TOTAL_FACTURA")
 	private double 		total_factura    	= 0;
 
@@ -56,19 +58,13 @@ public class Ventas {
 	private double  	total_pagado	 	= 0;
 
 
-
-	@Column(name="TOTAL_DEVUELTO" )
-	private double  	total_devuelto	 	= 0;
-
-
 	@Column(name="SALDO_FACTURA")
 	private double 		saldo_factura    	= 0;
 
 
-	@OneToMany(fetch = FetchType.LAZY)
-
+	@OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_FACTURA")
-	private List<Detalle_venta> productos_facturados = new ArrayList<Detalle_venta>();
+	private List<DetalleVentas> productos_facturados = new ArrayList<DetalleVentas>();
 
 
 	public int getId_factura() {
@@ -80,12 +76,12 @@ public class Ventas {
 		this.id_factura = id_factura;
 	}
 	
-	public Date getFec_factura() {
+	public LocalDate getFec_factura() {
 		return fec_factura;
 	}
 
 
-	public void setFec_factura(Date fec_factura) {
+	public void setFec_factura(LocalDate fec_factura) {
 		this.fec_factura = fec_factura;
 	}
 
@@ -99,14 +95,7 @@ public class Ventas {
 	}
 
 
-	public double getTotal_compras() {
-		return total_compras;
-	}
-
-
-	public void setTotal_compras(double total_compras) {
-		this.total_compras = total_compras;
-	}
+	
 
 	public double getTotal_factura() {
 		return total_factura;
@@ -128,16 +117,6 @@ public class Ventas {
 	}
 
 
-	public double getTotal_devuelto() {
-		return total_devuelto;
-	}
-
-
-	public void setTotal_devuelto(double total_devuelto) {
-		this.total_devuelto = total_devuelto;
-	}
-
-
 	public double getSaldo_factura() {
 		return saldo_factura;
 	}
@@ -148,14 +127,24 @@ public class Ventas {
 	}
 
 
-	public List<Detalle_venta> getProductos_facturados() {
-		return productos_facturados;
+	
+	  public List<DetalleVentas> getProductos_facturados() { return
+	  productos_facturados; }
+	  
+	  
+	  public void setProductos_facturados(List<DetalleVentas> productos_facturados)
+	  { this.productos_facturados = productos_facturados; }
+
+
+	public int getTipoFactura() {
+		return tipoFactura;
 	}
 
 
-	public void setProductos_facturados(List<Detalle_venta> productos_facturados) {
-		this.productos_facturados = productos_facturados;
+	public void setTipoFactura(int tipoFactura) {
+		this.tipoFactura = tipoFactura;
 	}
+	 
 
 
 }

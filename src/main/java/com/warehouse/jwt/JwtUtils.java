@@ -59,7 +59,7 @@ public class JwtUtils {
         Claims claims = extractAllClaims(token);
         return claimsTFunction.apply(claims);
     }
-
+   
     // Obtener todos los claims del token
     public Claims extractAllClaims(String token){
         return Jwts.parserBuilder()

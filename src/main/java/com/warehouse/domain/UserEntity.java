@@ -86,7 +86,7 @@ public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank Stri
 	}
 
 	public UserEntity() {
-	
+	//this.roles =  new RolEntity();
 }
 
 	public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank String password, int tipoid,

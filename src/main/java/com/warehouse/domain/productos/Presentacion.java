@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 
 @Entity()
-@Table(name = "PRESENTACION")
+@Table(name = "presentacion")
 public class Presentacion {
 
 	private static final long serialVersionUID = 1L;

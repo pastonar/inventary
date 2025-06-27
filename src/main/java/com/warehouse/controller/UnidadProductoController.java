@@ -1,6 +1,9 @@
 package com.warehouse.controller;
 
+import java.io.IOException;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,14 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse.domain.productos.Unidad;
 import com.warehouse.exception.ResourceNotFoundException;
 import com.warehouse.repository.UnidadRepository;
 
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
+//@CrossOrigin(origins = "http://192.168.103.131:5501,http://localhost:5501,http://localhost:8080")
 public class UnidadProductoController {
 
 	@Autowired
@@ -40,14 +47,24 @@ public class UnidadProductoController {
 
 	 
 
-	// Recuperar todos los equipos	OK
-	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-	@RequestMapping(value="/unidades", method=RequestMethod.GET)
-	//@GetMapping("/unidades")
-	public ResponseEntity<Iterable<Unidad>> getAllUnidad() {
+	// Recuperar todos los unidades	OK
+	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+	//@RequestMapping(value="/unidades", method=RequestMethod.GET)
+	@GetMapping("/unidades")
+	//@CrossOrigin("*")
+	public ResponseEntity<Iterable<Unidad>> getAllUnidad() 
+			throws IOException, ServletException 
+	{
+		HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin","*");	
 	Iterable<Unidad> allUnidades = unidadRepository.findAll();
-	return new ResponseEntity<>(allUnidades, HttpStatus.OK);
-	}
+	
+	return ResponseEntity.ok()
+			//.headers(responseHeaders)
+    .body(allUnidades);
+	//return new  ResponseEntity<>(allUnidades, HttpStatus.OK);
+	} 
 
 
 	//Recuperar equipo por serial	OK @Secured({ "ROLE_VIEWER", "ROLE_EDITOR" })
@@ -61,7 +78,7 @@ public class UnidadProductoController {
 	//Recuperar un equipo en particular	OK
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 
-	@RequestMapping(value="/unidads/{unidadId}", method=RequestMethod.GET)
+	@RequestMapping(value="/unidades/{unidadId}", method=RequestMethod.GET)
 	public ResponseEntity<?> getEstado(@PathVariable Long unidadId) {
 		 
 		verifyUnidad(unidadId);
@@ -70,7 +87,7 @@ public class UnidadProductoController {
 	}
 	//Crear un nuevo equipo
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/unidadNuevo")
+	@PostMapping("/nuevaunidad")
 	//@RequestMapping(value="/equipos", method=RequestMethod.POST)
 	public ResponseEntity<?> createUnidad(@Valid @RequestBody Unidad unidad) {
 		unidad = unidadRepository.save(unidad);
@@ -88,13 +105,13 @@ public class UnidadProductoController {
 	//Actualizar un unidad OK
 	@RequestMapping(value="/unidades/{unidadId}", method=RequestMethod.PUT)
 	public ResponseEntity<?> updateProducto(@RequestBody Unidad unidad, @PathVariable Long unidadId) {
-		verifyUnidad(unidadId);
+		//verifyUnidad(unidadId);
 		unidadRepository.save(unidad);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	//Borrar un unidad OK
-	@RequestMapping(value="/unidades/{unidadId}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/deleteunidades/{unidadId}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> deleteEstado(@PathVariable Long unidadId) {
 		verifyUnidad(unidadId);
 		unidadRepository.deleteById(unidadId);

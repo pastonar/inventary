@@ -43,8 +43,6 @@ throw new ResourceNotFoundException("Equipo con  id No." + equipoId + " no encon
 }
 }
 
- 
-
 // Recuperar todos los equipos	OK
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 @RequestMapping(value="/equipos", method=RequestMethod.GET)

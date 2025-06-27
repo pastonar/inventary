@@ -4,11 +4,13 @@ package com.warehouse.controller;
 import com.warehouse.domain.ERol;
 import com.warehouse.domain.RolEntity;
 import com.warehouse.domain.UserEntity;
+import com.warehouse.domain.productos.Unidad;
 import com.warehouse.dto.CreateUserDTO;
 import com.warehouse.repository.UserEntityRepository;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +21,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//@CrossOrigin(origins = "*")
 @RestController
+@CrossOrigin(origins = "http://192.168.103.131:5501,http://localhost:5501,http://localhost:8080")
+
 public class PrincipalController {
 
     @Autowired
@@ -28,9 +33,25 @@ public class PrincipalController {
     @Autowired
     private UserEntityRepository userRepository;
 
+    @GetMapping("/response")
+    public ResponseEntity<String> usingResponseEntityBuilderAndHttpHeaders() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin","*");
+        System.out.println("response");
+        return ResponseEntity.ok()
+          .headers(responseHeaders)
+          .body("Response with header using ResponseEntity");
+    }
+    //@CrossOrigin("*")
     @GetMapping("/hello")
-    public String hello(){
-        return "Hello World Not Secured";
+    ResponseEntity<String> hello(){
+    	
+    	HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Access-Control-Allow-Origin","*");	
+        return ResponseEntity.ok()
+        		//.headers(responseHeaders)
+        .body("Hello");
+    	//return "Hello World Not Secured";
     }
 
     @GetMapping("/helloSecured")

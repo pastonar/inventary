@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,6 +47,7 @@ throw new ResourceNotFoundException("EstadoEquipo con  id No." + estadoEquipoId 
  
 
 // Recuperar todos los estadoEquipos	OK
+@CrossOrigin(origins = "*") 
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 @RequestMapping(value="/estadoEquipo", method=RequestMethod.GET)
 public ResponseEntity<Iterable<EstadoEquipo>> getAllEstadoEquipos() {
@@ -73,7 +75,7 @@ public ResponseEntity<?> getEstadoEquipo(@PathVariable Long estadoEquipoId) {
 	return new ResponseEntity<> (e, HttpStatus.OK); 
 }
 //Crear un nuevo estadoEquipo
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @PostMapping("/estadoEquipo")
 //@RequestMapping(value="/estadoEquipos", method=RequestMethod.POST)
 public ResponseEntity<?> createEstadoEquipo(@Valid @RequestBody EstadoEquipo estadoEquipo) {

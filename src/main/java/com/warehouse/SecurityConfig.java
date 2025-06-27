@@ -45,14 +45,25 @@ public class SecurityConfig {
         
         return httpSecurity
                 //.csrf(config -> config.disable())
-        		.csrf(AbstractHttpConfigurer::disable)
+        		//.csrf(AbstractHttpConfigurer::disable)
+        		
+        		.csrf((csrf) -> csrf.disable())
+				/*
+				 * .cors().configurationSource(request -> new
+				 * CorsConfiguration().applyPermitDefaultValues()); .and()
+				 */
         		.authorizeHttpRequests(auth -> {
-        			//auth.requestMatchers("/productos").permitAll();
-        			//auth.requestMatchers("/unidades").permitAll();
+        			auth.requestMatchers("/clientesXrazonsocial").permitAll();
+        			auth.requestMatchers("/**").permitAll();
         			//auth.requestMatchers("/presentaciones").permitAll();
-        			auth.requestMatchers("/login").permitAll();
-                	auth.anyRequest().authenticated()
-                    ;
+        			//auth.requestMatchers("/productos").permitAll();
+        			//auth.requestMatchers("/login").permitAll();
+        			
+        			//auth.requestMatchers("/hello").permitAll();estadoEquipo
+        			//auth.requestMatchers("/response").hasAnyRole("ADMIN");
+        			//auth.requestMatchers("/presentaciones").permitAll();
+        			//.hasAnyRole("ADMIN");
+        			//auth.anyRequest().authenticated();
                 })
 				
 				/*

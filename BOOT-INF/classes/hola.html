@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Document</title>
+</head>
+<body>
+   <article>
+    <form class="login-form">
+      
+        <input type="text" name="username" id="username" placeholder="Username">
+            <br>
+            <input type="text" name="password" id="password" placeholder="Password">
+            <br>
+            <br>
+            <input type="submit" value="enviar">
+            <input type="hidden" name="id" value="">    
+    </form>
+   </article> 
+   <script>
+    const d = document;
+    const $form = d.querySelector(".login-form");
+
+  const ajax = (options) =>
+{
+    let {url,method,success,error,data} = options;
+    
+    const xhr= new XMLHttpRequest();
+    xhr.addEventListener("readystatechange",e=>{
+        if (xhr.readyState !== 4) return;
+          if (xhr.status >=200 && xhr.status <300)
+          {
+            let json = JSON.parse(xhr.responseText);
+            console.log(json);
+            success(json);
+          }
+          else{
+            let message = xhr.statusText || "ocurrio un error";
+            error(`Error ${xhr.status}:${message}`);
+          }
+        });
+    xhr.open(method||"GET",url);
+    xhr.setRequestHeader("Content-type","application/json;charset=utf-8");   
+    xhr.send(JSON.stringify(data));
+}
+
+d.addEventListener("submit",e =>{
+    if (e.target===$form)
+    e.preventDefault();
+    if (!e.target.id.value)
+    {
+        ajax(
+            {
+                method:"GET",
+                url:"http://localhost:5555/users",
+                success: (res) =>location.reload,
+                error: () =>$form.insertAdjacentHTML("afterend",`<p>${err}</p>`),
+                data: {username:e.target.tipoid.value,
+                       password:e.target.numid.value,
+                      }
+             });
+     }
+    else
+    {
+     // PUT
+        alert(e.target.id.value);
+     ajax(
+            {
+                method:"PUT",
+                url:`http://localhost:5555/users/${e.target.id.value}`,
+                success: (res) =>location.reload,
+                error: () =>$form.insertAdjacentHTML("afterend",`<p>${err}</p>`),
+                data: {tipoid:e.target.tipoid.value,
+                        numid:e.target.numid.value,
+                        nombre:e.target.nombre.value
+                      }
+             });
+    }
+    
+}
+) 
+
+</script>
+</body>
+
+
+
+</html>

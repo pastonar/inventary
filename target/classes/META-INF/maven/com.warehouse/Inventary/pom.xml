@@ -11,8 +11,8 @@
 	<groupId>com.warehouse</groupId>
 	<artifactId>Inventary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	 <packaging>jar</packaging> 
-	<name>Inventary</name>
+	 <packaging>jar</packaging>  
+	<name>Inventary</name> 
 	<description>Inventary With JWT</description>
 	<properties>
 		<java.version>17</java.version>

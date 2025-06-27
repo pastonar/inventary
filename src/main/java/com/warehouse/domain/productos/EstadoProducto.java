@@ -41,8 +41,6 @@ public void setIdEstadoProducto(int idEstadoProducto) {
 }
 
 
-
-
 public String getDescripcion() {
 	return descripcion;
 }

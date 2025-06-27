@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -98,8 +99,9 @@ return new ResponseEntity<>(allusers, HttpStatus.OK);
 
 
 //Recuperar un user en particular	OK
-@GetMapping("/usuarios/{userId}")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@CrossOrigin(origins = "*") 
+@GetMapping("/usuarios/{Id}")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @ApiOperation(value = "Recupera unvusuario en particular", response=UserEntity.class)
 @ApiResponses(value = {@ApiResponse(code=200, message="", response=UserEntity.class),  
 @ApiResponse(code=404, message="Imposible recuperar el usuario", response=ErrorDetail.class) } )

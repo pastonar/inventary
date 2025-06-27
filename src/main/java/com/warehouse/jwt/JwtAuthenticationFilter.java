@@ -41,6 +41,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             userEntity = new ObjectMapper().readValue(request.getInputStream(), UserEntity.class);
             username = userEntity.getUsername();
             password = userEntity.getPassword();
+        
         } catch (StreamReadException e) {
             throw new RuntimeException(e);
         } catch (DatabindException e) {
@@ -63,9 +64,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         User user = (User) authResult.getPrincipal();
         String token = jwtUtils.generateAccesToken(user.getUsername());
-
+        //System.out.println(token);
         response.addHeader("Authorization", token);
-
+        
+        
         Map<String, Object> httpResponse = new HashMap<>();
         httpResponse.put("token", token);
         httpResponse.put("Message", "Autenticacion Correcta");

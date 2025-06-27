@@ -33,8 +33,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         String tokenHeader = request.getHeader("Authorization");
-
-        if(tokenHeader != null && tokenHeader.startsWith("Bearer ")){
+        //response.setHeader("Access-Control-Allow-Origin", "*");
+        //System.out.println(tokenHeader);
+        if(tokenHeader != null && tokenHeader.startsWith("Bearer "))
+        {
             String token = tokenHeader.substring(7);
 
             if(jwtUtils.isTokenValid(token)){
