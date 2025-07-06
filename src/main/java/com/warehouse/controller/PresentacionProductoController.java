@@ -144,7 +144,7 @@ public class PresentacionProductoController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	@RequestMapping(value="/presentacionXdescripcion", method=RequestMethod.GET)
 	public ResponseEntity<?> countByDescripcion(@RequestParam String descripcion) {
-		Long counterestados = presentacionRepository.countByDescripcion(descripcion) ;
+		Long counterestados = presentacionRepository.countByDescripcionIgnoreCase(descripcion) ;
 	
 		return new ResponseEntity<>(counterestados, HttpStatus.OK);
 	}
@@ -166,31 +166,26 @@ public class PresentacionProductoController {
 	@PostMapping("/presentacionNuevo")
 	//@RequestMapping(value="/equipos", method=RequestMethod.POST)
 	public ResponseEntity<?> createPresentacion(@Valid @RequestBody Presentacion presentacion) 
-		throws  java.sql.SQLIntegrityConstraintViolationException
 		{
-		System.out.println("presentacion: "+presentacion.getDescripcion());
-		 
-		Long counterestados = presentacionRepository.countByDescripcion(presentacion.getDescripcion().toUpperCase()) ;
-		System.out.println("No presentacion: "+counterestados);
-		HttpHeaders responseHeaders = new HttpHeaders();
-		//if (counterestados == 0)
-		//{
-		
-		//if (verifyDescripcion(presentacion.getDescripcion())==0)
-		//{
+			  System.out.println("presentacion: "+presentacion.getDescripcion());
+			  Long counterestados =
+			  presentacionRepository.countByDescripcionIgnoreCase(presentacion.getDescripcion().toUpperCase()) ;
+			  System.out.println("No presentacion: "+counterestados);
+			  HttpHeaders  responseHeaders = new HttpHeaders();
+		if (counterestados == 0)
+		{
 			presentacion = presentacionRepository.save(presentacion);
-		// Set the location header for the newly created resource
-		
-		URI newProductoUri = ServletUriComponentsBuilder
+			URI newProductoUri = ServletUriComponentsBuilder
 				.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(presentacion.getIdpresentacion())
 				.toUri();
-		responseHeaders.setLocation(newProductoUri);	
-		//throw new java.sql.SQLIntegrityConstraintViolationException("presentacion con  id No."  + " Existente");
-		//}
-		return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
-		
+		responseHeaders.setLocation(newProductoUri);
+		return new ResponseEntity<>(null,responseHeaders,HttpStatus.CREATED);
+		}
+		else
+		return new ResponseEntity<>(null,responseHeaders,HttpStatus.BAD_REQUEST);
+			
 	}
 
 	//Actualizar un presentacion OK
