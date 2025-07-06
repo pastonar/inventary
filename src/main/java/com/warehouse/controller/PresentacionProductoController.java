@@ -142,7 +142,7 @@ public class PresentacionProductoController {
 	 */
 
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-	@RequestMapping(value="/presentacionXdescripcion", method=RequestMethod.GET)
+	@RequestMapping(value="/presentacionXdescripcion", method=RequestMethod.GET) 
 	public ResponseEntity<?> countByDescripcion(@RequestParam String descripcion) {
 		Long counterestados = presentacionRepository.countByDescripcionIgnoreCase(descripcion) ;
 	
@@ -167,11 +167,11 @@ public class PresentacionProductoController {
 	//@RequestMapping(value="/equipos", method=RequestMethod.POST)
 	public ResponseEntity<?> createPresentacion(@Valid @RequestBody Presentacion presentacion) 
 		{
-			  System.out.println("presentacion: "+presentacion.getDescripcion());
 			  Long counterestados =
 			  presentacionRepository.countByDescripcionIgnoreCase(presentacion.getDescripcion().toUpperCase()) ;
 			  System.out.println("No presentacion: "+counterestados);
 			  HttpHeaders  responseHeaders = new HttpHeaders();
+			 	
 		if (counterestados == 0)
 		{
 			presentacion = presentacionRepository.save(presentacion);
@@ -184,7 +184,7 @@ public class PresentacionProductoController {
 		return new ResponseEntity<>(null,responseHeaders,HttpStatus.CREATED);
 		}
 		else
-		return new ResponseEntity<>(null,responseHeaders,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null,responseHeaders,HttpStatus.BAD_REQUEST);
 			
 	}
 

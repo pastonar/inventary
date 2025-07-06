@@ -49,7 +49,7 @@ public class InventaryApplication extends SpringBootServletInitializer {
 	  
 	  // http://localhost:9001 "/**"
 	  
-	  } }; } }
+	  } }; } } 
 	 
 }
 

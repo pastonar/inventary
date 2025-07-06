@@ -15,4 +15,7 @@ public interface UnidadRepository extends CrudRepository<Unidad, Long>{
 	@Query("select e from Unidad  e where e.descripcion LIKE :descripcion%")
 	List<Unidad> findAllByDescripcion(String descripcion) ;
 
+	@Query(" SELECT count(*) from Unidad  e where e.descripcion = :descripcion")
+	long countByDescripcionIgnoreCase(String descripcion);
+	
 }

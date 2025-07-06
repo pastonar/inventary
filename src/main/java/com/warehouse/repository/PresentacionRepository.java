@@ -22,10 +22,10 @@ public interface PresentacionRepository extends CrudRepository<Presentacion, Lon
 	
 	@Query("select e from Presentacion  e where e.descripcion = :descripcion")
 	Presentacion findByDescripcion(String descripcion) ;
-	
+	 
 	//SELECT count(*) FROM inventario.presentacion as e where descripcion like "v20*";
+	//@Query(value=" SELECT count(*) from presentacion   where ucase(descripcion) = ':descripcion'",nativeQuery = true)
 	@Query(" SELECT count(*) from Presentacion  e where e.descripcion = :descripcion")
-
 	long countByDescripcionIgnoreCase(String descripcion);
 	
 }

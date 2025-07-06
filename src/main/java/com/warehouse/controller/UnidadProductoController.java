@@ -90,17 +90,23 @@ public class UnidadProductoController {
 	@PostMapping("/nuevaunidad")
 	//@RequestMapping(value="/equipos", method=RequestMethod.POST)
 	public ResponseEntity<?> createUnidad(@Valid @RequestBody Unidad unidad) {
-		unidad = unidadRepository.save(unidad);
-		// Set the location header for the newly created resource
-		HttpHeaders responseHeaders = new HttpHeaders();
-		URI newProductoUri = ServletUriComponentsBuilder
-				.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(unidad.getIdunidad())
-				.toUri();
-		responseHeaders.setLocation(newProductoUri);
-		return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
-	}
+		 Long counter =
+				 unidadRepository.countByDescripcionIgnoreCase(unidad.getDescripcion().toUpperCase()) ;
+				 HttpHeaders  responseHeaders = new HttpHeaders();
+			if (counter == 0)
+			{
+				unidad = unidadRepository.save(unidad); 
+				URI newProductoUri = ServletUriComponentsBuilder
+					.fromCurrentRequest()
+					.path("/{id}")
+					.buildAndExpand(unidad.getIdunidad())
+					.toUri();
+			responseHeaders.setLocation(newProductoUri);
+			return new ResponseEntity<>(null,responseHeaders,HttpStatus.CREATED);
+			}
+			else
+				return new ResponseEntity<>(null,responseHeaders,HttpStatus.BAD_REQUEST);
+		}
 
 	//Actualizar un unidad OK
 	@RequestMapping(value="/unidades/{unidadId}", method=RequestMethod.PUT)

@@ -12,6 +12,7 @@ com\warehouse\jwt\JwtAuthorizationFilter.class
 com\warehouse\domain\RolEntity.class
 com\warehouse\dto\UserEntityDto.class
 com\warehouse\dto\VentasListDTO.class
+com\warehouse\InventaryApplication$Myconfiguration.class
 com\warehouse\controller\TestRolesController.class
 com\warehouse\exception\ResourceNotFoundException.class
 com\warehouse\repository\EquipoRepository.class
@@ -34,6 +35,7 @@ com\warehouse\domain\productos\Unidad.class
 com\warehouse\domain\clientes\Cliente.class
 com\warehouse\repository\DetalleVentasRepository.class
 com\warehouse\dto\AuthenticationRequest.class
+com\warehouse\InventaryApplication$Myconfiguration$1.class
 com\warehouse\controller\VentasControllerDto.class
 com\warehouse\domain\ERol.class
 com\warehouse\repository\UserRepository.class
