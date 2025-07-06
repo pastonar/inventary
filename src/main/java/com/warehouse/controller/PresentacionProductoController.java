@@ -170,7 +170,7 @@ public class PresentacionProductoController {
 		{
 		System.out.println("presentacion: "+presentacion.getDescripcion());
 		 
-		Long counterestados = presentacionRepository.countByDescripcion(presentacion.getDescripcion()) ;
+		Long counterestados = presentacionRepository.countByDescripcion(presentacion.getDescripcion().toUpperCase()) ;
 		System.out.println("No presentacion: "+counterestados);
 		HttpHeaders responseHeaders = new HttpHeaders();
 		//if (counterestados == 0)
