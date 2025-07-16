@@ -28,7 +28,7 @@ public interface KardexDTORepository extends CrudRepository<KardexDTO, Long> {
 	Optional<KardexDTO> findById(Long idproducto) ;
 						
 	@Query(value="SELECT k.*,p.descripcion as descripcion "
-			+ "FROM Kardex as k,productos as p "
+			+ "FROM kardex as k,productos as p "
 			+ "where fecha between :date1 and :date2 "
 			,nativeQuery = true)
 	List<KardexDTO> findAllByfechas(LocalDate date1,LocalDate date2);
