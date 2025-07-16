@@ -65,16 +65,7 @@ Iterable<VentasDto> allVentas = ventasRepository.findAll();
 return new ResponseEntity<>(allVentas, HttpStatus.OK);
 }
 
-/*
- * @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
- * 
- * @CrossOrigin(origins = "*")
- * 
- * @GetMapping("/ventasDtoByCliente") public ResponseEntity<Iterable<VentasDto>>
- * getAllVentasByCliente(@RequestParam Long idcliente) { Iterable<VentasDto>
- * allVentas = ventasRepository.findAllByidCliente(idcliente); return new
- * ResponseEntity<>(allVentas, HttpStatus.OK); }
- */
+
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 @CrossOrigin(origins = "*")
 @GetMapping("/ventasDtoByfechas")
@@ -91,19 +82,7 @@ Iterable<VentasDto> allVentas = ventasRepository.findAllByClienteFechas(date1,da
 return new ResponseEntity<>(allVentas, HttpStatus.OK); 
 }
 
-//Recuperar equipo por serial	OK @Secured({ "ROLE_VIEWER", "ROLE_EDITOR" })
-/*
- * @CrossOrigin(origins = "*")
- * 
- * @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
- * 
- * @RequestMapping(value="/ventassXmarcaYserial", method=RequestMethod.GET)
- * public ResponseEntity<Iterable<Ventas>>
- * getAllVentassByMarcaYSerial(@RequestParam String marca,@RequestParam String
- * serial) { Iterable<Ventas> allVentass =
- * ventasRepository.findAllByMarcaYSerial(marca,serial) ; return new
- * ResponseEntity<>(allVentass, HttpStatus.OK); }
- */
+
 
 //Recuperar un equipo en particular	OK
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")

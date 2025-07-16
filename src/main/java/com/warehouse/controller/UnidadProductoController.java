@@ -2,8 +2,6 @@ package com.warehouse.controller;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +20,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse.domain.productos.Unidad;
 import com.warehouse.exception.ResourceNotFoundException;
 import com.warehouse.repository.UnidadRepository;
 
+
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+
 @RestController
-//@CrossOrigin(origins = "http://192.168.103.131:5501,http://localhost:5501,http://localhost:8080")
+@CrossOrigin(origins = "*") 
 public class UnidadProductoController {
 
 	@Autowired
 	private UnidadRepository unidadRepository;
-
+	
 	protected void verifyUnidad(Long unidadId) throws ResourceNotFoundException {
 		Optional<Unidad> unidad = unidadRepository.findById(unidadId);
 	if(unidad.isPresent() == false) {
@@ -123,5 +121,6 @@ public class UnidadProductoController {
 		unidadRepository.deleteById(unidadId);
 	return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
 	
 }

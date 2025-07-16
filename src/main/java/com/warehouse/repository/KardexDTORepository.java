@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.warehouse.domain.productos.Producto;
+
 
 //import com.warehouse.domain.productos.Kardex;
 
@@ -34,25 +34,25 @@ public interface KardexDTORepository extends CrudRepository<KardexDTO, Long> {
 	List<KardexDTO> findAllByfechas(LocalDate date1,LocalDate date2);
 	
 	@Query(value="SELECT saldo_cantidad "
-			+ "FROM Kardex "
+			+ "FROM kardex "
 			+ "where id_producto = :idProducto and fecha <= :date  order by id_mvto desc  limit 1"
 			,nativeQuery = true)
 	Optional<Double> saldoCantidad(Long idProducto,LocalDate date);
 	//+ " and id_mvto <= :index "
 	@Query(value="SELECT saldo_total "
-			+ "FROM Kardex "
+			+ "FROM kardex "
 			+ "where id_producto = :idProducto and fecha  <= :date  order by id_mvto desc  limit 1"
 			,nativeQuery = true)
 	Optional<Double>  saldoTotal(Long idProducto,LocalDate date);
 	
 	@Query(value="SELECT f.*,p.descripcion as descripcion " 
-			+ "FROM Kardex as k,productos as p "
+			+ "FROM kardex as k,productos as p "
 			+ "where fecha between :date1 and :date2 "
 			+ "and k.articulo.id_producto = p.id_producto " 
 			+ "and k.articulo.id_producto = :idProducto"
 			,nativeQuery = true)
 	List<KardexDTO> findAllByProductoFechas(LocalDate date1,LocalDate date2,Long idProducto);
 	
-	@Query(value="select count(*) from Kardex as k where k.id_producto = :idProducto",nativeQuery = true)
+	@Query(value="select count(*) from kardex as k where k.id_producto = :idProducto",nativeQuery = true)
 	Optional<Long> countRecords(Long idProducto) ;	
 }
