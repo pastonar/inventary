@@ -19,8 +19,12 @@ public interface DetalleVentasRepository extends CrudRepository<DetalleVentas, L
 	List<DetalleVentas> findAllById(Long idDetalle) ;
 	
 	@Query("select e from DetalleVentas  e where e.id_factura  = :idFactura")
-	List<DetalleVentas> findByIdFactura(Long idFactura) ;
+	List<DetalleVentas> findByIdFactura(Long idFactura) ; 
 	
+	@Query("select e from DetalleVentas  e where e.id_factura  in (:idFacturas)")
+	//@Query(value="select * from detalle_facturas  as e where e.id_factura  in  (:idFacturas)",nativeQuery = true)
+
+	List<DetalleVentas> findByIdFacturas(List<Integer> idFacturas) ;
 	
 	@Query(value="select count(*) from Ventas ",nativeQuery = true)
 	long countByPresentacionYUnidad(String descripcion);

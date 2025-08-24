@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,6 +38,14 @@ public class DetalleVentasController {
 	public List<DetalleVentas> getAllDetalleVentas(@PathVariable Long IdFactura) {
 		return detalleventasRepository.findByIdFactura(IdFactura);
 	}
+	
+	@RequestMapping(value="/Ventas/detalleFacturas", method=RequestMethod.GET)
+	//@ApiOperation(value = "Retrieves all the votes", response=Vote.class, responseContainer="List")
+	public List<DetalleVentas> getAllDetalleVentas(@RequestParam List<Integer> IdFacturas) {
+		System.out.println(IdFacturas);
+		return detalleventasRepository.findByIdFacturas(IdFacturas);
+	}
+	
 	
 	//Crear un nuevo equipo
 	@CrossOrigin(origins = "*") 
