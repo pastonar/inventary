@@ -4,6 +4,7 @@ package com.warehouse.controller;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 //import java.net.http.HttpHeaders;
 import java.util.Optional;
 
@@ -158,7 +159,7 @@ public ResponseEntity<?> createVentas(@Valid @RequestBody VentasDto venta) {
 										  -1,valorParcial,cantidadFacturada,
 										   0,valorParcial,saldoCantidad1,saldoTotal1,
 										   venta.getId_factura(),totalRegistros1, 
-										   venta.getIdCliente(), costoPresentacion );
+										   costoPresentacion );
 		
 			
 			/*KardexDTO(  idProducto, fecha, descripcion,  tipo,  total,
@@ -180,6 +181,158 @@ public ResponseEntity<?> createVentas(@Valid @RequestBody VentasDto venta) {
 	// asiento = new Kardex( venta.ge, LocalDate fecha, String descripcion, double tipo, double total,
 	//		double cantidad, double debe, double haber, double cantidadSaldo, double cantidadValor) {
 		
+	return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
+}
+
+
+//CrossOrigin(origins = "*"); 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PostMapping("/nuevaDevolucionComprasDto") 
+//@RequestMapping(value="/equipos", method=RequestMethod.POST)
+// ventas con el precio de costo del producto
+
+public ResponseEntity<?> createDevolucionCompras(@RequestParam LocalDate  fechaActual,@RequestParam List<Integer> IdFacturas) {
+	double cantidadFacturada = 0;
+	long idProducto;
+	double costoPresentacion = 0;
+	double costoUnidad = 0;
+	double precioPresentacion = 0;
+	double totalFacturado = 0;
+	double saldoCantidad = 0;
+	double saldoTotal = 0;
+	double saldoCantidad1 = 0;
+	double saldoTotal1 = 0;
+	long totalRegistros = 0;
+	int totalRegistros1 = 0;
+	
+	double valorParcial = 0;
+	Optional<VentasDto> venta = null;
+	Optional<Double> sc = Optional.empty();
+	Optional<Double> st = Optional.empty();
+	Optional<Long> tr = Optional.empty();
+	HttpHeaders responseHeaders = new HttpHeaders();
+	for (Integer idFactura : IdFacturas)
+	{
+		venta = ventasRepository.findById( (long) idFactura);
+		venta.get().setFec_factura(fechaActual);
+	for(int i=0; i<venta.get().getProductos_facturados().size();i++)
+	{
+		// valores actuales
+		cantidadFacturada = venta.get().getProductos_facturados().get(i).getCantidad_vendida();
+		idProducto = (long) venta.get().getProductos_facturados().get(i).getIdProducto();
+		precioPresentacion = venta.get().getProductos_facturados().get(i).getPrecio_venta();
+		//costoPresentacion = venta.get().getProductos_facturados().get(i).getCostoPresentacion();
+		costoUnidad = venta.get().getProductos_facturados().get(i).getCostoUnidad();
+		//valorParcial = mat.Redondear(costoPresentacion * cantidadFacturada,0);
+		valorParcial = venta.get().getProductos_facturados().get(i).getValor_parcial();
+		costoPresentacion = valorParcial / cantidadFacturada;
+		System.out.println(cantidadFacturada);
+		System.out.println(idProducto);
+		System.out.println(precioPresentacion);
+		System.out.println(costoPresentacion);
+		System.out.println(costoUnidad);
+		System.out.println(valorParcial);
+		// valores inmediatamente anterior
+		sc = kardexRepository.saldoCantidad(idProducto, venta.get().getFec_factura());
+		st = kardexRepository.saldoTotal(idProducto, venta.get().getFec_factura());
+		tr = kardexRepository.countRecords(idProducto);
+		saldoCantidad = !(sc.isPresent()) || sc.isEmpty()  ? 0:sc.get();//sc.isPresent()? sc.get():0;
+		saldoTotal = !(st.isPresent()) || st.isEmpty()  || st.isEmpty() ? 0:st.get();//st.isPresent()? sc.get():0;
+		totalRegistros = !(tr.isPresent()) || tr.isEmpty()  ?  0:tr.get();//tr.isPresent()? tr.get():0;
+		saldoCantidad1 = (double) (saldoCantidad > 0? cantidadFacturada:0);
+		saldoTotal1 = (double) (saldoTotal > 0? valorParcial:0);
+		totalRegistros1 = (int) (totalRegistros+1);
+		
+		saldoCantidad1 = saldoCantidad - cantidadFacturada;//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
+		saldoTotal1 = saldoTotal - valorParcial;//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
+		ventasRepository.updateExistenciasProductos0(idProducto,cantidadFacturada);
+		KardexDTO asiento = new KardexDTO((int) idProducto, venta.get().getFec_factura(),
+										  "devolucion compras"+venta.get().getId_factura(),
+										  -1,valorParcial,cantidadFacturada,
+										   0,valorParcial,saldoCantidad1,saldoTotal1,
+										   venta.get().getId_factura(),totalRegistros1, 
+										    costoPresentacion);
+		kardexRepository.save(asiento);			
+		}
+	}
+	
+	
+	return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
+}
+
+//CrossOrigin(origins = "*"); 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PostMapping("/nuevaDevolucionVentaDto") 
+//@RequestMapping(value="/equipos", method=RequestMethod.POST)
+//ventas con el precio de costo del producto
+
+public ResponseEntity<?> createDevolucionVentas(@RequestParam LocalDate  fechaActual,@RequestParam List<Integer> IdFacturas) {
+	double cantidadFacturada = 0;
+	long idProducto;
+	double costoPresentacion = 0;
+	double costoUnidad = 0;
+	double precioPresentacion = 0;
+	double totalFacturado = 0;
+	double saldoCantidad = 0;
+	double saldoTotal = 0;
+	double saldoCantidad1 = 0;
+	double saldoTotal1 = 0;
+	long totalRegistros = 0;
+	int totalRegistros1 = 0;
+	
+	double valorParcial = 0;
+	Optional<VentasDto> venta = null;
+	Optional<Double> sc = Optional.empty();
+	Optional<Double> st = Optional.empty();
+	Optional<Long> tr = Optional.empty();
+	HttpHeaders responseHeaders = new HttpHeaders();
+	for (Integer idFactura : IdFacturas)
+	{
+		venta = ventasRepository.findById( (long) idFactura);
+		venta.get().setFec_factura(fechaActual);
+	for(int i=0; i<venta.get().getProductos_facturados().size();i++)
+	{
+		// valores actuales
+		cantidadFacturada = venta.get().getProductos_facturados().get(i).getCantidad_vendida();
+		idProducto = (long) venta.get().getProductos_facturados().get(i).getIdProducto();
+		precioPresentacion = venta.get().getProductos_facturados().get(i).getPrecio_venta();
+		//costoPresentacion = venta.get().getProductos_facturados().get(i).getCostoPresentacion();
+		costoUnidad = venta.get().getProductos_facturados().get(i).getCostoUnidad();
+		//valorParcial = mat.Redondear(costoPresentacion * cantidadFacturada,0);
+		valorParcial = venta.get().getProductos_facturados().get(i).getValor_parcial();
+		costoPresentacion = valorParcial / cantidadFacturada;
+		System.out.println(cantidadFacturada);
+		System.out.println(idProducto);
+		System.out.println(precioPresentacion);
+		System.out.println(costoPresentacion);
+		System.out.println(costoUnidad);
+		System.out.println(valorParcial);
+		// valores inmediatamente anterior
+		sc = kardexRepository.saldoCantidad(idProducto, venta.get().getFec_factura());
+		st = kardexRepository.saldoTotal(idProducto, venta.get().getFec_factura());
+		tr = kardexRepository.countRecords(idProducto);
+		saldoCantidad = !(sc.isPresent()) || sc.isEmpty()  ? 0:sc.get();//sc.isPresent()? sc.get():0;
+		saldoTotal = !(st.isPresent()) || st.isEmpty()  || st.isEmpty() ? 0:st.get();//st.isPresent()? sc.get():0;
+		totalRegistros = !(tr.isPresent()) || tr.isEmpty()  ?  0:tr.get();//tr.isPresent()? tr.get():0;
+		saldoCantidad1 = (double) (saldoCantidad > 0? cantidadFacturada:0);
+		saldoTotal1 = (double) (saldoTotal > 0? valorParcial:0);
+		totalRegistros1 = (int) (totalRegistros+1);
+		
+		saldoCantidad1 = saldoCantidad - cantidadFacturada;//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
+		saldoTotal1 = saldoTotal - valorParcial;//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
+		ventasRepository.updateExistenciasProductos0(idProducto,cantidadFacturada);
+		
+		KardexDTO asiento = new KardexDTO((int) idProducto, venta.get().getFec_factura(),
+				  "devolucion venta "+venta.get().getId_factura(),
+				  1,valorParcial,cantidadFacturada,
+				  valorParcial,0,saldoCantidad1,saldoTotal1,
+				  venta.get().getId_factura(),totalRegistros1,costoPresentacion);
+		
+		kardexRepository.save(asiento);			
+		}
+	}
+	
+	
 	return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
 }
 
@@ -252,11 +405,19 @@ public ResponseEntity<?> createCompra(@Valid @RequestBody VentasDto venta) {
 		ventasRepository
 		.updateExistenciasProductos3(idProducto,cantidadFacturada,precioUnitario);
 		
-		KardexDTO asiento = new KardexDTO((int) idProducto, venta.getFec_factura(),
+		KardexDTO asiento = new KardexDTO((int) idProducto,venta.getFec_factura(),
 										  "factura de compra "+venta.getId_factura(),
 										  1,valorParcial,cantidadFacturada,
 										  valorParcial,0,saldoCantidad1,saldoTotal1,
-										  venta.getId_factura(),totalRegistros1,venta.getIdCliente(),precioUnitario);
+										  venta.getId_factura(),totalRegistros1,precioUnitario);
+		
+		/*
+		 public KardexDTO(  idProducto,  fecha, descripcion,  tipo,  total,
+			cantidad, debe, haber, saldoCantidad, saldoTotal,idFactura,
+			indiceManual,precioUnitario) {//, double costoUnidad) {
+
+		 */
+		 
 		/*KardexDTO(idProducto,fecha,descripcion,tipo,total,cantidad,debe,
 		  haber,saldoCantidad,saldoTotal,idFactura,indiceManual)*/
 		kardexRepository.save(asiento);			
@@ -294,6 +455,24 @@ public ResponseEntity<?> createCompra(@Valid @RequestBody VentasDto venta) {
 	responseHeaders.setLocation(newVentasUri);
 	
 	return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
+}
+
+@CrossOrigin(origins = "*") 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PostMapping("/devolucionEnCompraDto")
+//@RequestMapping(value="/equipos", method=RequestMethod.POST)
+public ResponseEntity<?> devolucionEnCompra( @RequestParam LocalDate  fechaActual, List<Integer> IdFacturas) {
+	HttpHeaders responseHeaders = new HttpHeaders();
+	Optional<VentasDto> venta = null;
+
+	for (Integer idFactura : IdFacturas) {
+        System.out.println(idFactura);
+        venta = ventasRepository.findById( (long) idFactura);
+        
+        createVentas(venta.get());
+	
+	}
+		return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
 }
 
 //Actualizar un equipo OK

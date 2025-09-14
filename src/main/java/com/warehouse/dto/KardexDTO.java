@@ -30,8 +30,6 @@ public class KardexDTO {
 	@Column(name = "id_producto")
 	private int	 idProducto;
 	
-	@Column(name = "idcliente")
-	private int	 idCliente;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -74,9 +72,10 @@ public class KardexDTO {
 	
 	
 
-	public KardexDTO( int idProducto, LocalDate fecha, String descripcion, double tipo, double total,
-			double cantidad, double debe, double haber, double saldoCantidad, double saldoTotal, int idFactura,
-			int indiceManual,int idCliente, double precioUnitario) {//, double costoUnidad) {
+	public KardexDTO( int idProducto, LocalDate fecha, String descripcion, 
+					  double tipo, double total,double cantidad,
+					  double debe, double haber, double saldoCantidad, 
+					  double saldoTotal, int idFactura,int indiceManual,double precioUnitario ) {//, double costoUnidad) {
 		super();
 		
 		this.idProducto = idProducto;
@@ -91,7 +90,6 @@ public class KardexDTO {
 		this.saldoTotal = saldoTotal;
 		this.idFactura = idFactura;
 		this.indiceManual = indiceManual;
-		this.idCliente = idCliente;
 		this.precioUnitario = precioUnitario;
 		//this.costoUnidad = costoUnidad;
 	}
@@ -219,16 +217,7 @@ public class KardexDTO {
 		return serialVersionUID;
 	}
 
-	public int getIdCliente() {
-		return idCliente; 
-	}
-
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
-	}
-
-
-
+	
 	public void setPrecioUnitario(double precioUnitario) {
 		this.precioUnitario = precioUnitario;
 	}

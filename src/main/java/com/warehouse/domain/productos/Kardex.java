@@ -34,9 +34,11 @@ public class Kardex {
     @JoinColumn(name = "ID_PRODUCTO")
 	private Producto articulo;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idcliente")
-	private Cliente cliente;
+	/*
+	 * @ManyToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "idcliente") private Cliente cliente;
+	 */
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
@@ -207,14 +209,11 @@ public class Kardex {
 
 	
 	
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
+	/*
+	 * public Cliente getCliente() { return cliente; }
+	 * 
+	 * public void setCliente(Cliente cliente) { this.cliente = cliente; }
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -61,8 +61,8 @@ public class Ventas {
 	@Column(name="SALDO_FACTURA")
 	private double 		saldo_factura    	= 0;
 
-
-	@OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.PERSIST)
+	//,cascade = CascadeType.PERSIST
+	@OneToMany(fetch = FetchType.LAZY )
 	@JoinColumn(name = "ID_FACTURA")
 	private List<DetalleVentas> productos_facturados = new ArrayList<DetalleVentas>();
 

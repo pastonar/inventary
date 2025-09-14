@@ -43,7 +43,7 @@ public interface KardexDTORepository extends CrudRepository<KardexDTO, Long> {
 			+ "FROM kardex "
 			+ "where id_producto = :idProducto and fecha  <= :date  order by id_mvto desc  limit 1"
 			,nativeQuery = true)
-	Optional<Double>  saldoTotal(Long idProducto,LocalDate date);
+	Optional<Double>  saldoTotal(Long idProducto,LocalDate date); 
 	
 	@Query(value="SELECT f.*,p.descripcion as descripcion " 
 			+ "FROM kardex as k,productos as p "
