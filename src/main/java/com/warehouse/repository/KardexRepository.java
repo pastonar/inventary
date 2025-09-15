@@ -27,12 +27,8 @@ public interface KardexRepository extends CrudRepository<Kardex, Long> {
 	
 	
 	
-	@Query(value="SELECT f.*,p.descripcion as descripcion "
-			+ "FROM Kardex as k,productos as p "
-			+ "where fecha between :date1 and :date2 "
-			+ "and k.articulo.id_producto = p.id_producto " 
-			+ "and k.articulo.id_producto = :idProducto"
-			,nativeQuery = true)
+	@Query("select k from Kardex  k where k.articulo.id_producto = :idProducto"
+			+ " and k.fecha between :date1 and :date2")
 	List<Kardex> findAllByProductoFechas(Long idProducto,LocalDate date1,LocalDate date2);
 	
 		
