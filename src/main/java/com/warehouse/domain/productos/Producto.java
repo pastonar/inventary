@@ -50,7 +50,7 @@ public class Producto implements Cloneable{
 	@Column(name="COSTO_UNIDAD")
 	private double 	costoUnidad	= 0;
 	
-	@Column(name="cantidadExistente")
+	@Column(name="cantidad_Existente")
 	private double 	cantidadExistente	= 0;
 	
 	
