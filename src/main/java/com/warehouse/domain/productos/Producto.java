@@ -50,10 +50,13 @@ public class Producto implements Cloneable{
 	@Column(name="COSTO_UNIDAD")
 	private double 	costoUnidad	= 0;
 	
+	@Column(name="cantidadExistente")
+	private double 	cantidadExistente	= 0;
+	
+	
 	@Column(name="pctaje_ganancia") 
 	private double 	pctajeGanancia	= 10;
-	
-	
+		
 	@Column(name="fraccionar")
 	private boolean 	fraccionar	= false;
 	
@@ -196,6 +199,17 @@ public class Producto implements Cloneable{
 	public void setCostoUnidad(double costoUnidad) {
 		this.costoUnidad = costoUnidad;
 	}
+
+
+	public double getCantidadExistente() {
+		return cantidadExistente;
+	}
+
+	public void setCantidadExistente(double cantidadExistente) {
+		this.cantidadExistente = cantidadExistente;
+	}
+
+
 
 
 	public double getPctajeGanancia() {
