@@ -82,7 +82,7 @@ public class Producto implements Cloneable{
 		this.cantidad = 0;
 		this.precioUnidad = 0;
 		this.costoUnidad = 0;		
-		
+		this.cantidadExistente = 0;
 		this.costoPresentacion = 0;
 		this.precioPresentacion = 0;
 		this.setCostoPresentacion(this.costoPresentacion);
