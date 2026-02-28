@@ -89,9 +89,10 @@ return new ResponseEntity<>(allVentas, HttpStatus.OK);
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 @GetMapping("/ventasDto/{ventasId}")
 public ResponseEntity<?> getVentas(@PathVariable Long ventasId) {
-	 
+	//VentasDto r = null;
 	verifyEquipo(ventasId);
-	Optional<VentasDto> e = ventasRepository.findById(ventasId);
+	Optional<VentasDto> e = ventasRepository.findById(ventasId); 
+	
 	return new ResponseEntity<> (e, HttpStatus.OK); 
 }
 //Crear un nuevo equipo
@@ -138,23 +139,26 @@ public ResponseEntity<?> createVentas(@Valid @RequestBody VentasDto venta) {
 		sc = kardexRepository.saldoCantidad(idProducto, venta.getFec_factura());
 		st = kardexRepository.saldoTotal(idProducto, venta.getFec_factura());
 		tr = kardexRepository.countRecords(idProducto);
-	
+		System.out.println(cantidadFacturada);
 		saldoCantidad = !(sc.isPresent()) || sc.isEmpty()  ? 0:sc.get();//sc.isPresent()? sc.get():0;
-		saldoTotal = !(st.isPresent()) || st.isEmpty()  || st.isEmpty() ? 0:st.get();//st.isPresent()? sc.get():0;
-		totalRegistros = !(tr.isPresent()) || tr.isEmpty()  || tr.isEmpty()?  0:tr.get();//tr.isPresent()? tr.get():0;
+		saldoTotal = !(st.isPresent()) || st.isEmpty()   ? 0:st.get();//st.isPresent()? sc.get():0;
+		totalRegistros = !(tr.isPresent()) || tr.isEmpty()  ?  0:tr.get();//tr.isPresent()? tr.get():0;
 		saldoCantidad1 = (double) (saldoCantidad > 0? cantidadFacturada:0);
 		saldoTotal1 = (double) (saldoTotal > 0? valorParcial:0);
 		totalRegistros1 = (int) (totalRegistros+1);
+		
+		saldoCantidad1 = mat.Redondear(saldoCantidad - cantidadFacturada,2);//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
+		saldoTotal1 = mat.Redondear(saldoTotal - valorParcial,2);//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
+		System.out.println("aqui");
 		System.out.println(saldoCantidad1);
 		System.out.println(saldoTotal1);
 		System.out.println(totalRegistros1);
-		saldoCantidad1 = saldoCantidad - cantidadFacturada;//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
-		saldoTotal1 = saldoTotal - valorParcial;//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
 		//precioUnitario = venta.getProductos_facturados().get(i).getCostoPresentacion();
 		//precioUnitario = Math.round(saldoTotal1/saldoCantidad1);
 		
 		ventasRepository.updateExistenciasProductos0(idProducto,cantidadFacturada);
-			KardexDTO asiento = new KardexDTO((int) idProducto, venta.getFec_factura(),
+			
+		KardexDTO asiento = new KardexDTO((int) idProducto, venta.getFec_factura(),
 										  "factura de venta "+venta.getId_factura(),
 										  -1,valorParcial,cantidadFacturada,
 										   0,valorParcial,saldoCantidad1,saldoTotal1,
@@ -204,7 +208,7 @@ public ResponseEntity<?> createDevolucionCompras(@RequestParam LocalDate  fechaA
 	double saldoTotal1 = 0;
 	long totalRegistros = 0;
 	int totalRegistros1 = 0;
-	
+	long  idNoFactura = 0;
 	double valorParcial = 0;
 	Optional<VentasDto> venta = null;
 	Optional<Double> sc = Optional.empty();
@@ -215,12 +219,13 @@ public ResponseEntity<?> createDevolucionCompras(@RequestParam LocalDate  fechaA
 	{
 		venta = ventasRepository.findById( (long) idFactura);
 		venta.get().setFec_factura(fechaActual);
+		idNoFactura = venta.get().getId_factura();
 	for(int i=0; i<venta.get().getProductos_facturados().size();i++)
 	{
 		// valores actuales
 		cantidadFacturada = venta.get().getProductos_facturados().get(i).getCantidad_vendida();
 		idProducto = (long) venta.get().getProductos_facturados().get(i).getIdProducto();
-		precioPresentacion = venta.get().getProductos_facturados().get(i).getPrecio_venta();
+		precioPresentacion = venta.get().getProductos_facturados().get(i).getCostoPresentacion();
 		//costoPresentacion = venta.get().getProductos_facturados().get(i).getCostoPresentacion();
 		costoUnidad = venta.get().getProductos_facturados().get(i).getCostoUnidad();
 		//valorParcial = mat.Redondear(costoPresentacion * cantidadFacturada,0);
@@ -246,14 +251,17 @@ public ResponseEntity<?> createDevolucionCompras(@RequestParam LocalDate  fechaA
 		saldoCantidad1 = saldoCantidad - cantidadFacturada;//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
 		saldoTotal1 = saldoTotal - valorParcial;//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
 		ventasRepository.updateExistenciasProductos0(idProducto,cantidadFacturada);
+		
 		KardexDTO asiento = new KardexDTO((int) idProducto, venta.get().getFec_factura(),
 										  "devolucion compras"+venta.get().getId_factura(),
 										  -1,valorParcial,cantidadFacturada,
 										   0,valorParcial,saldoCantidad1,saldoTotal1,
 										   venta.get().getId_factura(),totalRegistros1, 
 										    costoPresentacion);
-		kardexRepository.save(asiento);			
+		kardexRepository.save(asiento);	
+		
 		}
+	ventasRepository.updateEstadoFactura( (long) idNoFactura,2);
 	}
 	
 	
@@ -279,7 +287,7 @@ public ResponseEntity<?> createDevolucionVentas(@RequestParam LocalDate  fechaAc
 	double saldoTotal1 = 0;
 	long totalRegistros = 0;
 	int totalRegistros1 = 0;
-	
+	long idNoFactura = 0;
 	double valorParcial = 0;
 	Optional<VentasDto> venta = null;
 	Optional<Double> sc = Optional.empty();
@@ -290,16 +298,19 @@ public ResponseEntity<?> createDevolucionVentas(@RequestParam LocalDate  fechaAc
 	{
 		venta = ventasRepository.findById( (long) idFactura);
 		venta.get().setFec_factura(fechaActual);
+		idNoFactura = venta.get().getId_factura();
 	for(int i=0; i<venta.get().getProductos_facturados().size();i++)
 	{
 		// valores actuales
+		System.out.println(venta.get().getProductos_facturados().get(i).toString());
+		
 		cantidadFacturada = venta.get().getProductos_facturados().get(i).getCantidad_vendida();
 		idProducto = (long) venta.get().getProductos_facturados().get(i).getIdProducto();
-		precioPresentacion = venta.get().getProductos_facturados().get(i).getPrecio_venta();
+		precioPresentacion = venta.get().getProductos_facturados().get(i).getCostoPresentacion();
 		//costoPresentacion = venta.get().getProductos_facturados().get(i).getCostoPresentacion();
 		costoUnidad = venta.get().getProductos_facturados().get(i).getCostoUnidad();
 		//valorParcial = mat.Redondear(costoPresentacion * cantidadFacturada,0);
-		valorParcial = venta.get().getProductos_facturados().get(i).getValor_parcial();
+		valorParcial = cantidadFacturada * precioPresentacion; //venta.get().getProductos_facturados().get(i).getValor_parcial();
 		costoPresentacion = valorParcial / cantidadFacturada;
 		System.out.println(cantidadFacturada);
 		System.out.println(idProducto);
@@ -318,11 +329,10 @@ public ResponseEntity<?> createDevolucionVentas(@RequestParam LocalDate  fechaAc
 		saldoTotal1 = (double) (saldoTotal > 0? valorParcial:0);
 		totalRegistros1 = (int) (totalRegistros+1);
 		
-		saldoCantidad1 = saldoCantidad - cantidadFacturada;//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
-		saldoTotal1 = saldoTotal - valorParcial;//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
+		saldoCantidad1 = saldoCantidad + cantidadFacturada;//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
+		saldoTotal1 = saldoTotal + valorParcial;//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
 		ventasRepository.updateExistenciasProductos0(idProducto,cantidadFacturada);
-		
-		KardexDTO asiento = new KardexDTO((int) idProducto, venta.get().getFec_factura(),
+			KardexDTO asiento = new KardexDTO((int) idProducto, venta.get().getFec_factura(),
 				  "devolucion venta "+venta.get().getId_factura(),
 				  1,valorParcial,cantidadFacturada,
 				  valorParcial,0,saldoCantidad1,saldoTotal1,
@@ -330,6 +340,8 @@ public ResponseEntity<?> createDevolucionVentas(@RequestParam LocalDate  fechaAc
 		
 		kardexRepository.save(asiento);			
 		}
+	ventasRepository.updateEstadoFactura( idNoFactura,2);
+
 	}
 	
 	
@@ -386,7 +398,7 @@ public ResponseEntity<?> createCompra(@Valid @RequestBody VentasDto venta) {
 		System.out.println("costoPresentacion "+costoPresentacion);
 		// datos anteriores 
 		saldoCantidad = !(sc.isPresent()) || sc.isEmpty()  ? 0:sc.get();//sc.isPresent()? sc.get():0;
-		saldoTotal = !(st.isPresent()) || st.isEmpty()  || st.isEmpty() ? 0:st.get();//st.isPresent()? sc.get():0;
+		saldoTotal = !(st.isPresent()) || st.isEmpty()   ? 0:st.get();//st.isPresent()? sc.get():0;
 		totalRegistros = !(tr.isPresent()) || tr.isEmpty()  || tr.isEmpty()?  0:tr.get();//tr.isPresent()? tr.get():0;
 		saldoCantidad1 = (double) saldoCantidad + cantidadFacturada;//(saldoCantidad > 0? cantidadFacturada:0);
 		saldoTotal1 = (double) saldoTotal + valorParcial;//(saldoTotal > 0? valorParcial:0);

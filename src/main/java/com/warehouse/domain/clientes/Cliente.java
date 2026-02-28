@@ -1,6 +1,8 @@
 package com.warehouse.domain.clientes;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
+
+//import com.tk.main.entity.clientes.Cliente;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +18,7 @@ import jakarta.persistence.Table;
 @Table(name = "clientes")
 
 
-public class Cliente {
+public class Cliente implements Cloneable {
 
 	@Id
 	@Column(name = "IDCLIENTE")
@@ -132,5 +134,14 @@ public class Cliente {
 		this.tipoId = tipoId;
 	}
 
+	public Object clone(){
+        Cliente obj=null;
+        try{
+            obj=(Cliente)super.clone();
+        }catch(CloneNotSupportedException ex){
+            System.out.println(" no se puede duplicar");
+        }
+        return obj;
+    }
 	
 }

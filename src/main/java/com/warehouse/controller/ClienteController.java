@@ -1,6 +1,7 @@
 package com.warehouse.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.warehouse.domain.clientes.Cliente;
 import com.warehouse.domain.productos.Producto;
+import com.warehouse.domain.ventas.DetalleVentas;
 import com.warehouse.exception.ResourceNotFoundException;
 import com.warehouse.repository.ClienteRepository;
 
@@ -112,21 +114,25 @@ public class ClienteController {
 		return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
 	}
 
+	
+	
 	//Recuperar un equipo en particular	OK
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	@CrossOrigin(origins = "*")
 	@GetMapping("/clientes/{idCliente}")
 	//@RequestMapping(value="/productos/{id_producto}", method=RequestMethod.GET)
 	public ResponseEntity<?> getCliente(@PathVariable Long idCliente) {
-		 
-		//verifyEquipo(id_producto);
-		Optional<Cliente> e = clienteRepository.findById(idCliente);
-		return new ResponseEntity<> (e, HttpStatus.OK);  
+	
+		Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+		Cliente clienteE = new Cliente();
+		if(cliente.isPresent() == true) 
+			clienteE = cliente.get();
+		return new ResponseEntity<> (clienteE, HttpStatus.OK);  
 	}
 	
 	
 	//Actualizar un equipo OK
-	@PutMapping(value="/clientes/{idCliente}")
+	@PutMapping("/clientes/{idCliente}")
 	@CrossOrigin(origins = "*") 
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> updaterProducto(@RequestBody Cliente cliente, @PathVariable Long idCliente) {

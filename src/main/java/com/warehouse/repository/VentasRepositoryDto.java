@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.warehouse.domain.productos.Producto;
+//import com.warehouse.domain.productos.Producto;
 
 //import com.warehouse.domain.ventas.Venta;
 
@@ -24,6 +24,11 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 	@Query("select e from Ventas  e where e.id_factura = :idFactura")
 	List<VentasDto> findAllById(Long idFactura) ;
 	
+	
+	/*
+	 * @Query("select e from Ventas  e where e.id_factura = :idFactura") VentasDto
+	 * findById(int idFactura) ;
+	 */
 						
 	@Query(value="select count(*) from facturas ",nativeQuery = true)
 	long countByPresentacionYUnidad(String descripcion);
@@ -46,8 +51,7 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 		@Modifying
 		@Transactional	
 		@Query(value="update productos set "+
-				 "existencias = ROUND(existencias - :cantidadVendida,1) , "+
-				 "saldo_cantidad = ROUND(saldo_cantidad - :cantidadVendida,1) "+
+				 "existencias = ROUND(existencias - :cantidadVendida,2)  "+
 				 "where id_producto = :idProducto ",nativeQuery = true)
 				void updateExistenciasProductos0(Long idProducto,double cantidadVendida) ;
 		
@@ -79,8 +83,9 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 					 "PRECIO_PRESENTACION = ROUND(:costoPresentacion * (1+(PCTAJE_GANANCIA/100)),0),"+
 					 "COSTO_UNIDAD = ROUND(:costoPresentacion / (existencias * :cantidadComprada),0), "+
 					 "PRECIO_UNIDAD = ROUND((PRECIO_PRESENTACION / (existencias * :cantidadComprada)),0), "+
-					 "saldo_cantidad = ROUND(saldo_cantidad + :cantidadComprada,1) "+
-	 				"where id_producto = :idProducto ",nativeQuery = true)
+					 "saldo_cantidad = ROUND(saldo_cantidad + :cantidadComprada,1), "+
+					 "cantidad_Existente = ROUND(cantidad * existencias,1) "+
+					 "where id_producto = :idProducto ",nativeQuery = true)
 					void updateExistenciasProductos3(Long idProducto,double cantidadComprada,double costoPresentacion);
 		
 		 
@@ -93,7 +98,13 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 					 "where id_producto = :idProducto ",nativeQuery = true)
 					void updateExistenciasProductos2(Long idProducto);
 		
-		
+		@Modifying
+		@Transactional	
+		@Query(value="update facturas set "+
+				 "estado_pago = :estado   "+
+				 "where id_factura = :idFactura ",nativeQuery = true)
+				void updateEstadoFactura(Long idFactura,int estado) ;
+	
 		
 		@Query(value="SELECT f.*,c.razon_social as nombre_cliente "
 				+ "FROM facturas as f,clientes as c "

@@ -14,11 +14,14 @@ import com.warehouse.domain.productos.Producto;
 public interface ProductoRepository extends CrudRepository<Producto, Long> {
 
 	@Query("select p from Producto p")
-	//@Query("SELECT m FROM Movie m WHERE m.title LIKE %:title%")
-	 List<Producto> findAll() ;
+	List<Producto> findAll() ;
 	
 	@Query("select e from Producto  e where e.descripcion LIKE :descripcion%")
 	List<Producto> findAllByDescripcion(String descripcion) ;
+	
+	@Query("select e from Producto  e "
+			+ "where estadoProducto.idEstadoProducto =:estado and   e.descripcion LIKE :descripcion%")
+	List<Producto> findAllByDescripcionEstado(String descripcion,int estado) ;
 	
 	@Query("select p from Producto  p where p.id_producto = :idproducto")
 	Optional<Producto> findById(Long idproducto) ;

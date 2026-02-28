@@ -53,8 +53,6 @@ throw new ResourceNotFoundException("Producto con  id No." + productoId + " NO E
 }
 }
 
- 
-
 // Recuperar todos los equipos	OK
 @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 //@RequestMapping(value="/productos", method=RequestMethod.GET)
@@ -71,6 +69,13 @@ return new ResponseEntity<>(allProductos, HttpStatus.OK);
 @GetMapping("/productosXdescripcion")
 public ResponseEntity<Iterable<Producto>> getAllProductosByDescripcion(@RequestParam String descripcion) {
 	Iterable<Producto> allProductos = productoRepository.findAllByDescripcion(descripcion) ;
+return new ResponseEntity<>(allProductos, HttpStatus.OK);
+}
+
+@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+@GetMapping("/productosXdescripcionEstado")
+public ResponseEntity<Iterable<Producto>> getAllProductosByDescripcion(@RequestParam String descripcion,@RequestParam int estado) {
+	Iterable<Producto> allProductos = productoRepository.findAllByDescripcionEstado(descripcion,estado) ;
 return new ResponseEntity<>(allProductos, HttpStatus.OK);
 }
 
@@ -93,13 +98,6 @@ public ResponseEntity<?> getProducto(@PathVariable Long id_producto) {
 @PostMapping("/productoNuevo")
 public ResponseEntity<?> createProducto(@Valid @RequestBody Producto producto) {
 	long count = 0;
-	//System.out.println(producto.getDescripcion());
-	/*
-	 * System.out.println(producto.getDescripcion().length());
-	 * System.out.println(producto.getUnidad().getDescripcion());
-	 * System.out.println(producto.getPresentacion().getDescripcion());
-	 */
-	System.out.println(producto);
 	count = productoRepository.countByPresentacionYUnidad(producto.getDescripcion());
 	//System.out.println(producto.isFraccionar());
 	HttpHeaders responseHeaders = new HttpHeaders();
@@ -118,7 +116,7 @@ public ResponseEntity<?> createProducto(@Valid @RequestBody Producto producto) {
 
 
 
-//Actualizar un equipo OK
+//Actualizar un producto OK
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @PutMapping("/productos/{id_producto}")
 @CrossOrigin(origins = "*") 

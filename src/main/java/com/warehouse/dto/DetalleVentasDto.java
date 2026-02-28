@@ -10,7 +10,7 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "detalle_facturas")
-public class DetalleVentasDto implements Cloneable{
+public class DetalleVentasDTO implements Cloneable{
 
 	@Id
 	@Column(name = "ID_DETALLE_FACTURA")

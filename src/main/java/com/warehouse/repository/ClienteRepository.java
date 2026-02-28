@@ -1,10 +1,12 @@
 package com.warehouse.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import com.warehouse.domain.clientes.Cliente;
+import com.warehouse.domain.ventas.DetalleVentas;
 
 
 
@@ -32,8 +34,10 @@ public interface ClienteRepository extends CrudRepository<Cliente, Long>{
 	@Query("select e from Cliente  e where e.dirCliente LIKE :direccion%")
 	List<Cliente> findAllByDireccion(String direccion) ;
 	
-	@Query("select c from Cliente c" )
+	@Query(" select count(*) from Cliente c" )
 	long countByPresentacionYUnidad(String descripcion);
-
+	
+	@Query("select c from Cliente  c where c.idCliente not  in (:idClientes)")
+	List<Cliente> findByIdClientes(List<Integer> idClientes) ;
 	
 }

@@ -25,6 +25,7 @@ import jakarta.persistence.TemporalType;
 
 import com.warehouse.domain.clientes.*;
 import com.warehouse.domain.ventas.DetalleVentas;
+import com.warehouse.dto.DetalleVentasDTO; 
 
 @Entity
 @Table(name = "facturas")
@@ -67,7 +68,7 @@ public class VentasDto {
 	
 	@OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_FACTURA")
-	private List<DetalleVentasDto> productos_facturados = new ArrayList<DetalleVentasDto>();
+	private List<DetalleVentasDTO> productos_facturados = new ArrayList<DetalleVentasDTO>();
 
 	
 	@Column(name="tipo_factura")
@@ -163,12 +164,12 @@ public class VentasDto {
 	}
 
 	
-	public List<DetalleVentasDto> getProductos_facturados() {
+	public List<DetalleVentasDTO> getProductos_facturados() {
 		return productos_facturados;
 	}
 
 
-	public void setProductos_facturados(List<DetalleVentasDto> productos_facturados) {
+	public void setProductos_facturados(List<DetalleVentasDTO> productos_facturados) {
 		this.productos_facturados = productos_facturados;
 	}
 

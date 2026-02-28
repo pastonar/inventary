@@ -47,7 +47,7 @@ public class DetalleVentasController {
 	}
 	
 	
-	//Crear un nuevo equipo
+	//Crear un nuevo asiento para la planilla
 	@CrossOrigin(origins = "*") 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/nuevoDetalleVentas")

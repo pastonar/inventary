@@ -80,7 +80,7 @@ public ResponseEntity<?> getVentas(@PathVariable Long ventasId) {
 @CrossOrigin(origins = "*") 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @PostMapping("/nuevaFactura")
-//@RequestMapping(value="/equipos", method=RequestMethod.POST)
+
 public ResponseEntity<?> createVentas(@Valid @RequestBody Ventas venta) {
 		HttpHeaders responseHeaders = new HttpHeaders();
 	venta = ventasRepository.save(venta);
