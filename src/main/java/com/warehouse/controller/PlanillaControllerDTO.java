@@ -99,8 +99,12 @@ public class PlanillaControllerDTO {
 				  .path("/{id}")
 				  .buildAndExpand(planilla.getIdPlanilla())
 				  .toUri();
+		  responseHeaders.add("idPlanilla", planilla.getIdPlanilla()+"");
 		  responseHeaders.setLocation(newPlanillaUri); 
-		  return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED); }
+		  return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED); 
+		  //return ResponseEntity.ok(planilla);
+
+		  }
 		 
 		  // modificar una planilla
 		  @PreAuthorize("hasRole('ROLE_ADMIN')")
