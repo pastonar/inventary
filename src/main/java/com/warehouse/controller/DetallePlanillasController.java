@@ -1,6 +1,7 @@
 package com.warehouse.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.warehouse.domain.empleados.EstadoEmpleado;
 import com.warehouse.domain.planillas.*;
+import com.warehouse.dto.DetallePlanillaDTO;
 import com.warehouse.repository.DetallePlanillaRepository;
 
 import jakarta.validation.Valid;
@@ -64,6 +67,15 @@ public class DetallePlanillasController {
 		return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
 	}
 	
+	//Borrar un equipo OK
+	@DeleteMapping("/ventas/detallePlanilla/{idDetallePlanilla}")
+	public ResponseEntity<?> deleteVentas(@PathVariable int idDetallePlanilla) {
+	
+		detalleplanillaRepository.deleteById(idDetallePlanilla);
+	return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
 	//Actualizar un empleado OK
 	
 	@PatchMapping("/planillas/detallePlanilla/{idDetallePlanilla}")
@@ -75,5 +87,17 @@ public class DetallePlanillasController {
 			return new ResponseEntity<>(HttpStatus.OK);  
 		}
 		
-		
+	
+	@PostMapping(value="/planillas/detallePlanilla/saveGroup")
+	public ResponseEntity<?> saveGroupClient(@RequestBody List<DetallePlanilla> detallesPlanilla) {
+		//HttpHeaders responseHeaders = new HttpHeaders();
+		List<DetallePlanilla> allAsistentes = new ArrayList<DetallePlanilla>();
+		for (DetallePlanilla detallePlanilla : detallesPlanilla) {
+			  detalleplanillaRepository.save(detallePlanilla);
+			  allAsistentes.add(detallePlanilla);
+	        }
+		 return ResponseEntity.ok(allAsistentes);
+		 //return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED);
+	}
+	
 }

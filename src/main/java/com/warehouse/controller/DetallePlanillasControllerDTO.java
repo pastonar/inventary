@@ -1,6 +1,7 @@
 package com.warehouse.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.warehouse.repository.DetallePlanillaRepository;
 import com.warehouse.repository.DetallePlanillaRepositoryDTO;
 import com.warehouse.domain.planillas.DetallePlanilla;
 import com.warehouse.dto.DetallePlanillaDTO;
+import com.warehouse.dto.PlanillaDTO;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -27,6 +32,9 @@ public class DetallePlanillasControllerDTO {
 
 	@Autowired
 	private DetallePlanillaRepositoryDTO detalleplanillaRepositoryDTO;
+	
+	@Autowired
+	private DetallePlanillaRepository detalleplanillaRepository;
 	
 	@GetMapping("/PlanillasDTO/{IdPlanilla}/detallePlanillaDTO")
 	public List<DetallePlanillaDTO> getdetallePlanilla(@PathVariable int IdPlanilla) {
@@ -41,12 +49,15 @@ public class DetallePlanillasControllerDTO {
 	}
 	
 	@PostMapping(value="/PlanillasDTO/saveGroup")
-	public ResponseEntity<?> saveGroupClient(@RequestBody List<DetallePlanillaDTO> clientes) {
-		HttpHeaders responseHeaders = new HttpHeaders();
-		for (DetallePlanillaDTO cliente : clientes) {
-			  detalleplanillaRepositoryDTO.save(cliente);
+	public ResponseEntity<?> saveGroupClient(@RequestBody List<DetallePlanillaDTO> detallesPlanilla) {
+		//HttpHeaders responseHeaders = new HttpHeaders();
+		List<DetallePlanillaDTO> allAsistentes = new ArrayList<DetallePlanillaDTO>();
+		for (DetallePlanillaDTO detallePlanilla : detallesPlanilla) {
+			  detalleplanillaRepositoryDTO.save(detallePlanilla);
+			  allAsistentes.add(detallePlanilla);
 	        }
-		 return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED);
+		 return ResponseEntity.ok(allAsistentes);
+		 //return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED);
 	}
 	
 	//Crear un nuevo equipo

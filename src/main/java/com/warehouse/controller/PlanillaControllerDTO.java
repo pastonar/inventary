@@ -1,6 +1,7 @@
 package com.warehouse.controller;
 
 import java.net.URI;
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -91,19 +92,27 @@ public class PlanillaControllerDTO {
 		  @PreAuthorize("hasRole('ROLE_ADMIN')")
 		  @PostMapping("/planillaNueva") 
 		  public ResponseEntity<?> createPlanilla(@RequestBody Planilla planilla) {
-		  System.out.println(planilla);
+		 
 		  HttpHeaders responseHeaders = new HttpHeaders(); 
 		  planillaRepository.save(planilla); 
+		  System.out.println(planilla.getIdPlanilla());
 		  URI newPlanillaUri = ServletUriComponentsBuilder
 				  .fromCurrentRequest()
 				  .path("/{id}")
 				  .buildAndExpand(planilla.getIdPlanilla())
 				  .toUri();
-		  responseHeaders.add("idPlanilla", planilla.getIdPlanilla()+"");
-		  responseHeaders.setLocation(newPlanillaUri); 
-		  return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED); 
-		  //return ResponseEntity.ok(planilla);
-
+		  responseHeaders.set("idPlanilla",planilla.getIdPlanilla()+"");
+		  responseHeaders.setLocation(newPlanillaUri);
+			/*
+			 * HttpRequest request = HttpRequest.newBuilder()
+			 * .uri(URI.create("http://example.com")) .header("X-Custom-Header",
+			 * "CustomHeaderValue") // Add custom header .build();
+			 */
+		  //return new ResponseEntity<>(null, responseHeaders,HttpStatus.CREATED); 
+		  /*return ResponseEntity.ok()
+				  .headers(responseHeaders)
+				  .body(newPlanillaUri);*/
+		  return ResponseEntity.ok(planilla.getIdPlanilla());
 		  }
 		 
 		  // modificar una planilla
@@ -120,8 +129,9 @@ public class PlanillaControllerDTO {
 		  @PreAuthorize("hasRole('ROLE_ADMIN')") 
 		  //@RequestMapping(value = "/planillas/{planillaId}", method = RequestMethod.DELETE) public
 		  ResponseEntity<?> deleteplanilla(@PathVariable Integer planillaId) {
-		  verifyPlanilla(planillaId); planillaRepositoryDTO.deleteById((long)
-		  planillaId); return new ResponseEntity<>(HttpStatus.OK); }
+		  verifyPlanilla(planillaId); 
+		  planillaRepositoryDTO.deleteById((long) planillaId); 
+		  return new ResponseEntity<>(HttpStatus.OK); }
 		 
 
 	}

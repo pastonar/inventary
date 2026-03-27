@@ -17,7 +17,8 @@ public interface PlanillaRepository extends CrudRepository<Planilla, Long> {
 	@Query("select p from Planilla p where p.idPlanilla = :planillaId")
 	Planilla findOne(Integer planillaId);
 		
-	
+	@Query("select p from Planilla p where p.estado = :estado")
+	public List<Planilla> findAllByEstado(int estado);
 	
 	@Query("select p from Planilla p")
 	public List<Planilla> findAll();

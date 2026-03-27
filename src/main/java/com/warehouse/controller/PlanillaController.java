@@ -30,6 +30,7 @@ import com.warehouse.exception.ResourceNotFoundException;
 
 import com.warehouse.repository.PlanillaRepository;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -46,6 +47,15 @@ public class PlanillaController {
 		}
 	}
 
+	
+	  @PreAuthorize("hasRole('ROLE_ADMIN')")
+	  @GetMapping("/planillaXEstado") 
+	  ResponseEntity<List<Planilla>> 
+	  getAllPlanillasByDate(@RequestParam int estado) { 
+	  List<Planilla> allPlanillas = planillaRepository.findAllByEstado(estado); 
+		  return new ResponseEntity<>(allPlanillas, HttpStatus.OK); }
+	  
+	
 	// recuperar todas las planillas
 	/*
 	 * @PreAuthorize("hasRole('ROLE_ADMIN')")
