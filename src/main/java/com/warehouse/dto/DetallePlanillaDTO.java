@@ -22,6 +22,16 @@ import com.warehouse.domain.clientes.Cliente;
 
 public class DetallePlanillaDTO implements Cloneable
 {
+	@Override
+	public String toString() {
+		return "DetallePlanillaDTO [idDetallePlanilla=" + idDetallePlanilla + ", idPlanilla=" + idPlanilla
+				+ ", horasTrabajadas=" + horasTrabajadas + ", idEmpleado=" + idEmpleado + ", horaEntrada=" + horaEntrada
+				+ ", horaSalida=" + horaSalida + ", observaciones=" + observaciones + ", selected=" + selected + "]";
+	}
+
+
+
+
 	@Id
 	@Column(name = "ID_DETALLE_PLANILLA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

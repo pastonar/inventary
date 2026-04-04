@@ -1,5 +1,6 @@
 package com.warehouse.controller;
 
+import java.io.Console;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.warehouse.repository.DetallePlanillaRepository;
 import com.warehouse.repository.DetallePlanillaRepositoryDTO;
-import com.warehouse.domain.planillas.DetallePlanilla;
+
 import com.warehouse.dto.DetallePlanillaDTO;
-import com.warehouse.dto.PlanillaDTO;
+
 
 import jakarta.validation.Valid;
 
@@ -33,8 +34,7 @@ public class DetallePlanillasControllerDTO {
 	@Autowired
 	private DetallePlanillaRepositoryDTO detalleplanillaRepositoryDTO;
 	
-	@Autowired
-	private DetallePlanillaRepository detalleplanillaRepository;
+	
 	
 	@GetMapping("/PlanillasDTO/{IdPlanilla}/detallePlanillaDTO")
 	public List<DetallePlanillaDTO> getdetallePlanilla(@PathVariable int IdPlanilla) {
@@ -83,10 +83,13 @@ public class DetallePlanillasControllerDTO {
 	public ResponseEntity<?> updateDetallePlanilla(@RequestBody DetallePlanillaDTO detalleplanilla,
 												   @PathVariable Long idDetallePlanilla) 
 	{
-		DetallePlanillaDTO registroActual = detalleplanillaRepositoryDTO.findByidDetallePlanilla(idDetallePlanilla);
-		registroActual.setHoraEntrada(detalleplanilla.getHoraEntrada());
-		registroActual.setHoraSalida(detalleplanilla.getHoraSalida());
-		detalleplanillaRepositoryDTO.save(registroActual);
+		
+		  DetallePlanillaDTO registroActual = detalleplanillaRepositoryDTO.
+				  findByIdDetallePlanilla(idDetallePlanilla);
+		  registroActual.setHoraEntrada(detalleplanilla.getHoraEntrada());
+		  registroActual.setHoraSalida(detalleplanilla.getHoraSalida());
+		  detalleplanillaRepositoryDTO.save(registroActual);
+		 
 		return new ResponseEntity<>(HttpStatus.OK);  
 	}
 	

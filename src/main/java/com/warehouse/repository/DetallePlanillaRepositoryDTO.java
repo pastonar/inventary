@@ -35,7 +35,7 @@ public interface DetallePlanillaRepositoryDTO extends CrudRepository<DetallePlan
 	
 	
 	// ventas por cliente
-		@Query("select p from DetallePlanilla  p where  p.idDetallePlanilla = :idDetalle")
-		DetallePlanillaDTO findByidDetallePlanilla(Long idDetalle) ;
+		@Query("select p from DetallePlanillaDTO  p where  p.idDetallePlanilla = :idDetallePlanilla")
+		DetallePlanillaDTO findByIdDetallePlanilla(Long idDetallePlanilla) ;
 		
 }
