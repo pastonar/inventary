@@ -83,7 +83,10 @@ public class DetallePlanillasControllerDTO {
 	public ResponseEntity<?> updateDetallePlanilla(@RequestBody DetallePlanillaDTO detalleplanilla,
 												   @PathVariable Long idDetallePlanilla) 
 	{
-		detalleplanillaRepositoryDTO.save(detalleplanilla);
+		DetallePlanillaDTO registroActual = detalleplanillaRepositoryDTO.findByidDetallePlanilla(idDetallePlanilla);
+		registroActual.setHoraEntrada(detalleplanilla.getHoraEntrada());
+		registroActual.setHoraSalida(detalleplanilla.getHoraSalida());
+		detalleplanillaRepositoryDTO.save(registroActual);
 		return new ResponseEntity<>(HttpStatus.OK);  
 	}
 	

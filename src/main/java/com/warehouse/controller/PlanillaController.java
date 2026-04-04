@@ -50,8 +50,7 @@ public class PlanillaController {
 	
 	  @PreAuthorize("hasRole('ROLE_ADMIN')")
 	  @GetMapping("/planillaXEstado") 
-	  ResponseEntity<List<Planilla>> 
-	  getAllPlanillasByDate(@RequestParam int estado) { 
+	  ResponseEntity<List<Planilla>>  getAllPlanillasByDate(@RequestParam int estado) { 
 	  List<Planilla> allPlanillas = planillaRepository.findAllByEstado(estado); 
 		  return new ResponseEntity<>(allPlanillas, HttpStatus.OK); }
 	  
