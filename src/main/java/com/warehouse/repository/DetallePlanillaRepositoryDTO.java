@@ -1,5 +1,6 @@
 package com.warehouse.repository;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -37,5 +38,11 @@ public interface DetallePlanillaRepositoryDTO extends CrudRepository<DetallePlan
 	// ventas por cliente
 		@Query("select p from DetallePlanillaDTO  p where  p.idDetallePlanilla = :idDetallePlanilla")
 		DetallePlanillaDTO findByIdDetallePlanilla(Long idDetallePlanilla) ;
+
+		// ventas por cliente
+				@Query("UPDATE DetallePlanillaDTO dp SET dp.horaEntrada = :in,dp.horaSalida = :out  WHERE dp.idDetallePlanilla = :idDetallePlanilla")
+				int updateInOut(Long idDetallePlanilla,LocalTime in,LocalTime out) ;
+			
+		
 		
 }

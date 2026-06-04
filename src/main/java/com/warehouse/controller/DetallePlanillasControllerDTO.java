@@ -93,5 +93,17 @@ public class DetallePlanillasControllerDTO {
 		return new ResponseEntity<>(HttpStatus.OK);  
 	}
 	
+	@PatchMapping("/planillas/detallePlanillaDTO1/{idDetallePlanilla}")
+	@CrossOrigin(origins = "*") 
+	public ResponseEntity<?> updateHourDetallePlanillaHour(@RequestBody DetallePlanillaDTO detalleplanilla,
+												   @PathVariable Long idDetallePlanilla) 
+	{
+		  
+		  detalleplanillaRepositoryDTO.updateInOut(idDetallePlanilla,detalleplanilla.getHoraEntrada(),detalleplanilla.getHoraSalida());
+		 
+		return new ResponseEntity<>(HttpStatus.OK);  
+	}
+	
+	
 	
 }

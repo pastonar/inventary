@@ -47,7 +47,7 @@ public class Empleado implements Cloneable {
 	private TipoIdentificacion tipoId ;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "grupo_trabajo")
+	@JoinColumn(name = "ID_GRUPO_EMPLEADO")
 	private GrupoEmpleado grupo ;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
