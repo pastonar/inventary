@@ -17,6 +17,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\PeriodoCa
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\UserRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\EstadoProductoController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\KardexDTO.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\TipoPersonaController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\BodegaRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\EmpleadoRepositoryDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\CreateUserDTO.java
@@ -44,6 +45,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\EquipoCon
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\productos\Presentacion.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\empleados\TipoIdentificacion.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\proveedores\TipoPersona.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\TipoPersonaRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\GrupoClienteController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\EstadoEquipo.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\VentasController.java
