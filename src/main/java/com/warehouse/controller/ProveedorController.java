@@ -90,7 +90,7 @@ public class ProveedorController {
 	//Crear un nuevo equipo
 	//@CrossOrigin(origins = "*") 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/proveedores")
+	@PostMapping("/nuevoProveedor")
 	//@RequestMapping(value="/equipos", method=RequestMethod.POST)
 	public ResponseEntity<?> createProducto(@Valid @RequestBody Proveedor proveedor) {
 		HttpHeaders responseHeaders = new HttpHeaders();
