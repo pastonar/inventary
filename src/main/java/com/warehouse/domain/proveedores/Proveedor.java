@@ -43,10 +43,8 @@ public class Proveedor implements Cloneable {
 	@Column(name="ESTADO")
    private int 	estado = 1;
 	
-	@Column(name="tipopersona")
-	   private int 	tipoPersona = 1;
-   
-	
+	@Column(name="tipoid")
+	private int 	tipoId = 1;
 	
 	public String getNit() {
 		return nit;
@@ -98,12 +96,13 @@ public class Proveedor implements Cloneable {
         return obj;
     }
 
-	public int getTipoPersona() {
-		return tipoPersona;
+	
+	public int getTipoId() {
+		return tipoId;
 	}
 
-	public void setTipoPersona(int tipoPersona) {
-		this.tipoPersona = tipoPersona;
+	public void setTipoId(int tipoId) {
+		this.tipoId = tipoId;
 	}
 
 	public int getIdProveedor() {
