@@ -21,10 +21,10 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\TipoPerso
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\BodegaRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\EmpleadoRepositoryDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\CreateUserDTO.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\PersonaRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\TipoIdentificacionEmpleadoRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\PlanillaController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\ClienteRepository.java
-C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\clientes\TipoIdentificacion1.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\ventas\Ventas.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\VentaHeaderDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\DetalleVentasRepository.java
@@ -47,6 +47,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\empleados\Tip
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\proveedores\TipoPersona.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\TipoPersonaRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\GrupoClienteController.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\personas\Proveedor.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\EstadoEquipo.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\VentasController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\productos\EstadoProducto.java
@@ -71,8 +72,10 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\Sostenimi
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\produccion\Produccion.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\jwt\JwtAuthorizationFilter.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\PlanillaDTO.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\personas\Cliente.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\proveedores\Proveedor.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\GrupoEmpleadoRepository.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\personas\GrupoTrabajo.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\AuthenticationResponse.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\EquipoRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\VentasControllerDto.java
@@ -122,5 +125,6 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\jwt\JwtUtils.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\EmpleadoRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\PeriodoCalibracionController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\empleados\Empleado.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\personas\Persona.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\Bodega.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\Utilities.java

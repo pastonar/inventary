@@ -19,9 +19,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,7 +49,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
-
 @Builder
 
 
@@ -59,8 +60,7 @@ public class UserEntityController {
 	@Autowired
 private UserEntityRepository userEntityRepository;
 
-
-
+	
 /*
  * @Autowired private PasswordEncoder passwordEncoder;
  */
@@ -113,8 +113,8 @@ public ResponseEntity<?> getuser(@PathVariable Long userId) {
 	Optional<UserEntity> e = userEntityRepository.findById(userId);
 	return new ResponseEntity<> (e, HttpStatus.OK); 
 }
-//Crear un nuevo user
-@PostMapping("/usuarios")
+//Crear un nuevo usuario
+@PostMapping("/usuarios/nuevoUsuario")
 public ResponseEntity<?> createuser(@Valid @RequestBody UserEntityDto user) {
 	
 	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -123,21 +123,18 @@ public ResponseEntity<?> createuser(@Valid @RequestBody UserEntityDto user) {
 	
 	Set<RolEntity> set = new HashSet<RolEntity>();
 	Set<String> roles = user.getRoles();
-	for(String rol : roles)
-		 {
-		 set.add(new RolEntity(ERol.valueOf(rol)));
-		 }
-	UserEntity userEntity = new UserEntity(
-											user.getUsername(),
-											pwd,
-											user.getTipoid(),
-											user.getNumid(),
-											user.getFirstName(),
-											user.getLastName(),
-											set);
 	
-	userEntity = userEntityRepository.save(userEntity);
-	// Set the location header for the newly created resource
+	  for(String rol : roles) 
+	  	  { 
+		  set.add(new RolEntity(ERol.valueOf(rol))); 
+		  }
+	  UserEntity userEntity = new UserEntity( user.getUsername(), pwd,
+	  user.getTipoid(), user.getNumid(), user.getFirstName(), 
+	  set);
+	  
+	  userEntity = userEntityRepository.save(userEntity);
+	 
+	
 	HttpHeaders responseHeaders = new HttpHeaders();
 	URI newuserUri = ServletUriComponentsBuilder
 			.fromCurrentRequest()
@@ -148,17 +145,35 @@ public ResponseEntity<?> createuser(@Valid @RequestBody UserEntityDto user) {
 	return new ResponseEntity<>(null,responseHeaders, HttpStatus.CREATED);
 }
 
-//Actualizar un user OK
-@RequestMapping(value="/usuarios/{userId}", method=RequestMethod.PUT)
+//Actualizar un usuario OK
+@PutMapping("/usuarios/{userId}")
 
-public ResponseEntity<?> updateUser(@RequestBody UserEntity  user, @PathVariable Long userId) {
-	verifyuser(userId);
-	userEntityRepository.save(user);
+public ResponseEntity<?> updateUser(@RequestBody UserEntityDto  user, @PathVariable Long userId) {
+	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	// PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	String pwd = passwordEncoder.encode(user.getPassword());
+	
+	Set<RolEntity> set = new HashSet<RolEntity>();
+	Set<String> roles = user.getRoles();
+	
+	  for(String rol : roles) 
+	  	  { 
+		  set.add(new RolEntity(ERol.valueOf(rol))); 
+		  }
+	  UserEntity userEntity = new UserEntity( user.getUsername(), pwd,
+	  user.getTipoid(), user.getNumid(), user.getFirstName(), set);
+	  userEntity.setId(userId);
+	  
+	  userEntity = userEntityRepository.save(userEntity);
+	
+		/*
+		 * verifyuser(userId); userEntityRepository.save(user);
+		 */
 	return new ResponseEntity<>(HttpStatus.OK);
 }
 
-//Borrar un user OK
-@RequestMapping(value="/usuarios/{userId}", method=RequestMethod.DELETE)
+//Borrar un usuario OK
+@DeleteMapping("/usuarios/{userId}")
 public ResponseEntity<?> deleteuser(@PathVariable Long userId) {
 	verifyuser(userId);
 	userEntityRepository.deleteById(userId);

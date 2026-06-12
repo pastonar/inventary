@@ -4,7 +4,6 @@ com\warehouse\controller\VentasHeaderControllerDto.class
 com\warehouse\controller\EstadoEmpleadoController.class
 com\warehouse\controller\UserEntityController.class
 com\warehouse\controller\EmpleadoControllerDTO.class
-com\warehouse\domain\clientes\TipoIdentificacion1.class
 com\warehouse\dto\UserEntityDto.class
 com\warehouse\dto\VentasListDTO.class
 com\warehouse\InventaryApplication$Myconfiguration.class

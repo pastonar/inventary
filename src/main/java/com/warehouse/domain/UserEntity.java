@@ -29,8 +29,6 @@ public class UserEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
-
 	@Column(name="userid")
 	private Long id;
 	
@@ -54,9 +52,7 @@ public class UserEntity {
 	@NotEmpty
 	private String firstName;
 	
-	@Column(name="apellidos")
-	@NotEmpty
-	private String lastName;
+	
 
 	@ManyToMany(fetch=FetchType.EAGER,targetEntity=RolEntity.class,cascade=CascadeType.PERSIST)
 	@JoinTable(
@@ -68,12 +64,9 @@ public class UserEntity {
 	private Set <RolEntity> roles;
 	
 	
-	
-	
-	
 
 public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank String password, int tipoid,
-			String numid, @NotEmpty String firstName, @NotEmpty String lastName, Set<RolEntity> roles) {
+			String numid, @NotEmpty String firstName,  Set<RolEntity> roles) {
 		
 	
 		this.username = username;
@@ -81,24 +74,14 @@ public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank Stri
 		this.tipoid = tipoid;
 		this.numid = numid;
 		this.firstName = firstName;
-		this.lastName = lastName;
-		this.roles = roles;
+	    this.roles = roles;
 	}
 
 	public UserEntity() {
 	//this.roles =  new RolEntity();
 }
 
-	public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank String password, int tipoid,
-			String numid, @NotEmpty String firstName, @NotEmpty String lastName) {
 	
-		this.username = username;
-		this.password = password;
-		this.tipoid = tipoid;
-		this.numid = numid;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 
 	public Long getId() {
 		return id;
@@ -150,15 +133,6 @@ public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank Stri
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
-	
 	
 	public Set<RolEntity> getRoles() {
 		return roles;
@@ -174,7 +148,7 @@ public UserEntity( @NotEmpty @NotBlank String username, @NotEmpty @NotBlank Stri
 
 
    
-
+	
 	
 	
 
