@@ -24,7 +24,7 @@ public interface VentasRepository extends CrudRepository<Ventas, Long> {
 	long countByPresentacionYUnidad(String descripcion);
 	
 	// ventas por cliente
-	@Query("select v from Ventas  v where comprador.idCliente = :idCliente")
+	@Query("select v from Ventas  v where comprador.idEmpleado = :idCliente")
 	List<Ventas> findAllByidCliente(Long idCliente) ;
 	
 	

@@ -23,6 +23,7 @@ import jakarta.persistence.TemporalType;
 //import com.warehouse.domain.clientes.Cliente;
 
 import com.warehouse.domain.clientes.*;
+import com.warehouse.domain.empleados.Empleado;
 
 @Entity
 @Table(name = "facturas")
@@ -39,8 +40,8 @@ public class Ventas {
 	private LocalDate	fec_factura 		= null;
 	
 	@ManyToOne(fetch = FetchType.EAGER ,cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "idcliente")
-	private Cliente 	comprador 	= new Cliente();
+	@JoinColumn(name = "idEmpleado")
+	private Empleado 	comprador 	= new Empleado();
 	// persist graba uno nuevo
 	// detach object references an unsaved transient instance - save the transient
 	// merge detach object references an unsaved transient instance - save the transient
@@ -84,17 +85,16 @@ public class Ventas {
 		this.fec_factura = fec_factura;
 	}
 
-	public Cliente getComprador() {
+	
+	public Empleado getComprador() {
 		return comprador;
 	}
 
 
-	public void setComprador(Cliente comprador) {
+	public void setComprador(Empleado comprador) {
 		this.comprador = comprador;
 	}
 
-
-	
 
 	public double getTotal_factura() {
 		return total_factura;

@@ -36,6 +36,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\empleados\Gru
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\Equipo.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\ProductoController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\utilities\mat.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\GrupoClienteRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\utilities\fechas.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\ProductoRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\planillas\EstadoPlanilla.java

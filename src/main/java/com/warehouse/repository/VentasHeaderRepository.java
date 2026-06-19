@@ -25,7 +25,7 @@ public interface VentasHeaderRepository extends CrudRepository<VentasHeaderDTO, 
 	long countByPresentacionYUnidad(String descripcion);
 	
 	
-		@Query("select v from VentasHeaderDTO  v where tipoFactura = :tipoFactura and comprador.idCliente = :idCliente")
+		@Query("select v from VentasHeaderDTO  v where tipoFactura = :tipoFactura and comprador.idEmpleado = :idCliente")
 		List<VentasHeaderDTO> findAllByidCliente(int tipoFactura,Long idCliente) ;
 		
 		// actualizar existencias del productos 
@@ -43,9 +43,9 @@ public interface VentasHeaderRepository extends CrudRepository<VentasHeaderDTO, 
 					 */
 		
 		
-		@Query(value="SELECT f.*,c.razon_social as cliente "
-				+ "FROM facturas as f,clientes as c "
-				+ "where f.id_cliente = c.idcliente and f.id_cliente = :idCliente and tipo_factura = :tipoFactura",nativeQuery = true)
+		@Query(value="SELECT f.*,c.nomCompleto as cliente "
+				+ "FROM facturas as f,empleados as e "
+				+ "where f.id_cliente = e.idEmpleado and f.id_cliente = :idCliente and tipo_factura = :tipoFactura",nativeQuery = true)
 		List<VentasHeaderDTO> findAllByidCliente1(int tipoFactura,Long idCliente) ; 
 
 		/*
@@ -68,7 +68,7 @@ public interface VentasHeaderRepository extends CrudRepository<VentasHeaderDTO, 
 		 * true)
 		 */
 		
-		@Query("select v from VentasHeaderDTO  v where  tipoFactura = :tipoFactura and comprador.idCliente = :idCliente and "
+		@Query("select v from VentasHeaderDTO  v where  tipoFactura = :tipoFactura and comprador.idEmpleado = :idCliente and "
 				+ "fec_factura between :date1 and :date2 ")
 			List<VentasHeaderDTO> findAllByClienteFechas(int tipoFactura,Long idCliente,LocalDate date1,LocalDate date2);
 		

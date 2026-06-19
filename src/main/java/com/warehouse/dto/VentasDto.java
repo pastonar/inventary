@@ -43,7 +43,7 @@ public class VentasDto {
 	
 	
 	  @Column(name = "idcliente") 
-	  private int idCliente ;
+	  private int idEmpleado ;
 	 
 		@Column(name="TOTAL_FACTURA")
 	private double 		total_factura    	= 0;
@@ -79,7 +79,7 @@ public class VentasDto {
 
 	@Override
 	public String toString() {
-		return "VentasDto [id_factura=" + id_factura + ", fec_factura=" + fec_factura + ", idCliente=" + idCliente
+		return "VentasDto [id_factura=" + id_factura + ", fec_factura=" + fec_factura + ", idCliente=" + idEmpleado
 				+ ", total_factura=" + total_factura + ", total_pagado=" + total_pagado + ", saldo_factura="
 				+ saldo_factura + ", estado_pago=" + estado_pago + ", productos_facturados=" + productos_facturados
 				+ ", tipoFactura=" + tipoFactura + "]";
@@ -125,13 +125,17 @@ public class VentasDto {
 
 	
 	
-	  public int getIdCliente(){ 
-		  return idCliente; }
 	  
-	  
-	  public void setIdCliente(int idCliente){ 
-		  this.idCliente = idCliente; }
-	 
+
+
+	public int getIdEmpleado() {
+		return idEmpleado;
+	}
+
+
+	public void setIdEmpleado(int idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
 
 
 	public double getTotal_factura() {

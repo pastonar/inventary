@@ -35,7 +35,7 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 	
 	// ventas por cliente
 	//@Modifying 
-		@Query("select v from VentasDto  v where tipoFactura = -1 and v.idCliente = :idCliente")
+		@Query("select v from VentasDto  v where tipoFactura = -1 and v.idEmpleado = :idCliente")
 		List<VentasDto> findAllByidCliente(Long idCliente) ;
 		
 		
@@ -107,8 +107,8 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 	
 		
 		@Query(value="SELECT f.*,c.razon_social as nombre_cliente "
-				+ "FROM facturas as f,clientes as c "
-				+ "where f.id_cliente = c.idcliente and f.id_cliente = :idCliente",nativeQuery = true)
+				+ "FROM facturas as f,empleados as e "
+				+ "where f.id_cliente = e.empleado and f.id_cliente = :idCliente",nativeQuery = true)
 		List<VentasDto> findAllByidCliente1(Long idCliente) ; 
 		
 		
@@ -120,15 +120,15 @@ and f.idcliente = c.idcliente and f.idcliente = 1
 		 */
 		
 		
-		@Query(value="SELECT f.*,c.razon_social as nombre_cliente "
-				+ "FROM facturas as f,clientes as c "
+		@Query(value="SELECT f.*,e.nomCompleto as nombre_cliente "
+				+ "FROM facturas as f,empleadoss as e "
 				+ "where fecha_factura between :date1 and :date2 "
 				,nativeQuery = true)
 		List<VentasDto> findAllByfechas(LocalDate date1,LocalDate date2);
 		
 		
-		@Query(value="SELECT f.*,c.razon_social as nombre_cliente "
-				+ "FROM facturas as f,clientes as c "
+		@Query(value="SELECT f.*,e.nomCompleto as nombre_cliente "
+				+ "FROM facturas as f,empleadoss as e  "
 				+ "where fecha_factura between :date1 and :date2 "
 				+ "and f.id_cliente = c.idcliente and f.id_cliente = :idCliente"
 				,nativeQuery = true)

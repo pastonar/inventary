@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.warehouse.domain.clientes.Cliente;
+import com.warehouse.domain.empleados.Empleado;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,7 +40,7 @@ public class VentasHeaderDTO {
 		
 		@ManyToOne(fetch = FetchType.EAGER)
 		@JoinColumn(name = "idcliente")
-		private Cliente 	comprador;
+		private Empleado 	comprador;
 		
 		@Column(name="TOTAL_FACTURA")
 		private double 		total_factura    	= 0;
@@ -59,7 +60,7 @@ public class VentasHeaderDTO {
 		public VentasHeaderDTO() {
 			this.id_factura = 0;
 			this.fec_factura = LocalDate. now();
-			this.comprador = new Cliente();
+			this.comprador = new Empleado();
 			this.total_factura = 0;
 			this.total_pagado = 0;
 			this.saldo_factura = 0;
@@ -114,11 +115,13 @@ public class VentasHeaderDTO {
 			this.estado_pago = estado_pago;
 		}
 
-		public Cliente getComprador() {
+		
+
+		public Empleado getComprador() {
 			return comprador;
 		}
 
-		public void setComprador(Cliente comprador) {
+		public void setComprador(Empleado comprador) {
 			this.comprador = comprador;
 		}
 
