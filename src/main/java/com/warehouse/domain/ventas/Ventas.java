@@ -47,6 +47,12 @@ public class Ventas {
 	// merge detach object references an unsaved transient instance - save the transient
 	// refresh detach object references an unsaved transient instance - save the transient
 
+	@Column(name="estado_factura")
+	private int 		estadoFactura    	= 0;
+	
+	
+
+
 	@Column(name="tipo_factura")
 	private int 		tipoFactura    	= 0;
 	
@@ -144,6 +150,13 @@ public class Ventas {
 		this.tipoFactura = tipoFactura;
 	}
 	 
+	public int getEstadoFactura() {
+		return estadoFactura;
+	}
 
+
+	public void setEstadoFactura(int estadoFactura) {
+		this.estadoFactura = estadoFactura;
+	}
 
 }

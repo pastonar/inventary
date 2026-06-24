@@ -8,6 +8,8 @@ public class VentaHeaderDTO {
 	
 	private int 	estado_pago = 0;
 
+	private int 	estado_factura = 0;
+	
 	public int getId_factura() {
 		return id_factura;
 	}
@@ -30,6 +32,14 @@ public class VentaHeaderDTO {
 
 	public void setTipoFactura(int tipoFactura) {
 		this.tipoFactura = tipoFactura;
+	}
+
+	public int getEstado_factura() {
+		return estado_factura;
+	}
+
+	public void setEstado_factura(int estado_factura) {
+		this.estado_factura = estado_factura;
 	}
 	
 	

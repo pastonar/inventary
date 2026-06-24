@@ -12,10 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -351,7 +353,7 @@ public ResponseEntity<?> createDevolucionVentas(@RequestParam LocalDate  fechaAc
 @CrossOrigin(origins = "*") 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @PostMapping("/nuevaCompraDto")
-//@RequestMapping(value="/equipos", method=RequestMethod.POST)
+
 public ResponseEntity<?> createCompra(@Valid @RequestBody VentasDto venta) {
 	double cantidadComprada = 0;
 	long idProducto;
@@ -472,7 +474,7 @@ public ResponseEntity<?> createCompra(@Valid @RequestBody VentasDto venta) {
 @CrossOrigin(origins = "*") 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 @PostMapping("/devolucionEnCompraDto")
-//@RequestMapping(value="/equipos", method=RequestMethod.POST)
+
 public ResponseEntity<?> devolucionEnCompra( @RequestParam LocalDate  fechaActual, List<Integer> IdFacturas) {
 	HttpHeaders responseHeaders = new HttpHeaders();
 	Optional<VentasDto> venta = null;
@@ -488,7 +490,7 @@ public ResponseEntity<?> devolucionEnCompra( @RequestParam LocalDate  fechaActua
 }
 
 //Actualizar un equipo OK
-@RequestMapping(value="/ventasDto/{ventasId}", method=RequestMethod.PUT)
+@PutMapping("/ventasDto/{ventasId}")
 public ResponseEntity<?> updateVentas(@RequestBody VentasDto ventas, @PathVariable Long ventasId) {
 	verifyEquipo(ventasId);
 	ventasRepository.save(ventas);
@@ -501,15 +503,14 @@ public ResponseEntity<?> updateVentas(@RequestBody VentasDto ventas, @PathVariab
 //Actualizar un equipo OK
 @RequestMapping(value="/ventasUpdateDto", method=RequestMethod.PATCH)
 public ResponseEntity<?> updateVentas1(@RequestBody VentasListDTO facturas) {
-	System.out.println(facturas.getRelacion_facturas().get(0).getId_factura());
-	//System.out.println(facturas  facturas().get(1).getId_factura());
+	
 	//facturas().get(i).getCantidad_vendida();
 	//ventasRepository.save(ventas);
 	return new ResponseEntity<>(HttpStatus.OK);
 }
 
 //Borrar un equipo OK
-@RequestMapping(value="/ventasDto/{ventasId}", method=RequestMethod.DELETE)
+@DeleteMapping("/ventasDto/{ventasId}")
 public ResponseEntity<?> deleteVentas(@PathVariable Long ventasId) {
 	verifyEquipo(ventasId);
 	ventasRepository.deleteById(ventasId);

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.warehouse.domain.empleados.Empleado;
 import com.warehouse.dto.VentasDto;
 import com.warehouse.dto.VentasHeaderDTO;
 
@@ -77,5 +78,10 @@ public interface VentasHeaderRepository extends CrudRepository<VentasHeaderDTO, 
 		@Query(value="update facturas set estado_pago = 1 where ID_FACTURA = :set",nativeQuery = true)
 		int updateventa(int set);
 		//update facturas set estado_pago = 1 where ID_FACTURA in (61,62,63,64)
+	
+		//@Query("UPDATE estadoFactura = :estado where idFactura in (:idFacturas) ")
+		@Query(value="update facturas set estado_factura = :estado where ID_FACTURA in (:idFacturas)",nativeQuery = true)
+		List<VentasHeaderDTO> updateStateFacturas(List<Integer> idFacturas, int estado) ;
+		
 		
 }

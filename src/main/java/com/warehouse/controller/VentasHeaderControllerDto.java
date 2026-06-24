@@ -4,6 +4,7 @@ package com.warehouse.controller;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 //import java.net.http.HttpHeaders;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -170,6 +172,15 @@ public ResponseEntity<?> updateHeadeVentas(@RequestBody VentasListDTO venta) {
 	//ventasheaderRepository.save(ventas);
 	return new ResponseEntity<>(HttpStatus.OK);
 }
+
+//Actualizar un equipo OK
+@PatchMapping("/facturasUpdateState")
+public ResponseEntity<?> updateHeadeVentasEstado(@RequestParam List<Integer> IdFacturas,int state) {
+		ventasheaderRepository.updateStateFacturas(IdFacturas,state);
+		
+	return new ResponseEntity<>(HttpStatus.OK);
+}
+
 
 
 //Borrar un equipo OK
