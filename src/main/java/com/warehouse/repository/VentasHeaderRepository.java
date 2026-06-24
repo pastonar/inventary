@@ -80,8 +80,10 @@ public interface VentasHeaderRepository extends CrudRepository<VentasHeaderDTO, 
 		//update facturas set estado_pago = 1 where ID_FACTURA in (61,62,63,64)
 	
 		//@Query("UPDATE estadoFactura = :estado where idFactura in (:idFacturas) ")
+		@Modifying
+		@Transactional	
 		@Query(value="update facturas set estado_factura = :estado where ID_FACTURA in (:idFacturas)",nativeQuery = true)
-		List<VentasHeaderDTO> updateStateFacturas(List<Integer> idFacturas, int estado) ;
+		int updateStateFacturas(List<Integer> idFacturas, int estado) ;
 		
 		
 }
