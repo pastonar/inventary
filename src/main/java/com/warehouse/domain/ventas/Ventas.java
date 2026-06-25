@@ -50,19 +50,14 @@ public class Ventas {
 	@Column(name="estado_factura")
 	private int 		estadoFactura    	= 0;
 	
-	
-
-
 	@Column(name="tipo_factura")
 	private int 		tipoFactura    	= 0;
 	
 	@Column(name="TOTAL_FACTURA")
 	private double 		total_factura    	= 0;
 
-
 	@Column(name="TOTAL_PAGADO")
 	private double  	total_pagado	 	= 0;
-
 
 	@Column(name="SALDO_FACTURA")
 	private double 		saldo_factura    	= 0;
@@ -71,7 +66,6 @@ public class Ventas {
 	@OneToMany(fetch = FetchType.LAZY )
 	@JoinColumn(name = "ID_FACTURA")
 	private List<DetalleVentas> productos_facturados = new ArrayList<DetalleVentas>();
-
 
 	public int getId_factura() {
 		return id_factura;

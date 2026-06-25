@@ -82,7 +82,9 @@ public interface VentasHeaderRepository extends CrudRepository<VentasHeaderDTO, 
 		//@Query("UPDATE estadoFactura = :estado where idFactura in (:idFacturas) ")
 		@Modifying
 		@Transactional	
-		@Query(value="update facturas set estado_factura = :estado where ID_FACTURA in (:idFacturas)",nativeQuery = true)
+		//@Query(value="update facturas set estado_factura = :estado where ID_FACTURA in (:idFacturas)",nativeQuery = true)
+		@Query("UPDATE Ventas set estadoFactura = :estado where id_factura in (:idFacturas)")
+		
 		int updateStateFacturas(List<Integer> idFacturas, int estado) ;
 		
 		
