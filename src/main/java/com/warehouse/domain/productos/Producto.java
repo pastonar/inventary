@@ -60,8 +60,11 @@ public class Producto implements Cloneable{
 	@Column(name="fraccionar")
 	private boolean 	fraccionar	= false;
 	
-	@Column(name="saldo_cantidad")
-	private double 	saldoCantidad	= 0;
+	/*
+	 * @Column(name="saldo_cantidad") private double saldoCantidad = 0;
+	 * 
+	 * @Column(name="saldo_existencias") private double saldoExistencias = 0;
+	 */
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -236,16 +239,14 @@ public class Producto implements Cloneable{
 	}
 
 
-	public double getSaldoCantidad() {
-		return saldoCantidad;
-	}
-
-
-
-	public void setSaldoCantidad(double saldoCantidad) {
-		this.saldoCantidad = saldoCantidad;
-	}
-
+	/*
+	 * public double getSaldoCantidad() { return saldoCantidad; }
+	 * 
+	 * 
+	 * 
+	 * public void setSaldoCantidad(double saldoCantidad) { this.saldoCantidad =
+	 * saldoCantidad; }
+	 */
 
 
 	@Override
@@ -271,6 +272,19 @@ public class Producto implements Cloneable{
 			return false;
 		return true;
 	}
+
+
+
+	/*
+	 * public double getSaldoExistencias() { return saldoExistencias; }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * public void setSaldoExistencias(double saldoExistencias) {
+	 * this.saldoExistencias = saldoExistencias; }
+	 */
+
 
 
 

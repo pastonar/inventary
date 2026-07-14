@@ -50,10 +50,25 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 		// actualizar existencias del productos
 		@Modifying
 		@Transactional	
-		@Query(value="update productos set "+
-				 "existencias = ROUND(existencias - :cantidadVendida,2)  "+
-				 "where id_producto = :idProducto ",nativeQuery = true)
-				void updateExistenciasProductos0(Long idProducto,double cantidadVendida) ;
+		
+		/*
+		 * @Query(value="update productos set "+
+		 * "existencias = ROUND(existencias - :cantidadVendida,2)  "+
+		 * "where id_producto = :idProducto ",nativeQuery = true)
+		 */
+		// ROUND(saldo_existencias - :cantidadVendida,2)
+		 
+		/*
+		 * @Query(value="update productos set "+
+		 * "saldo_cantidad = saldo_cantidad - :cantidadVendida , "+
+		 * "saldo_existencias = saldo_existencias - (:cantidadVendida/(existencias * cantidad))  "
+		 * + "where id_producto = :idProducto ",nativeQuery = true)
+		 */
+				
+		  @Query(value="update productos set "+
+				  "existencias = existencias - :cantidadVendida  "+
+				  "where id_producto = :idProducto ",nativeQuery = true)
+		void updateExistenciasProductos0(Long idProducto,double cantidadVendida) ;
 		
 		/*
 		 * @Query(value="update productos set "+

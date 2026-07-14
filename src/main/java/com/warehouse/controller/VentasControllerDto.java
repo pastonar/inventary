@@ -100,7 +100,7 @@ public ResponseEntity<?> getVentas(@PathVariable Long ventasId) {
 //Crear un nuevo equipo
 @CrossOrigin(origins = "*") 
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@PostMapping("/nuevaFacturaDto")
+@PostMapping("/nuevaFacturaVentaDto")
 //@RequestMapping(value="/equipos", method=RequestMethod.POST)
 // ventas con el precio de costo del producto
 
@@ -112,6 +112,7 @@ public ResponseEntity<?> createVentas(@Valid @RequestBody VentasDto venta) {
 	double precioPresentacion = 0;
 	double totalFacturado = 0;
 	double saldoCantidad = 0;
+	double saldoExistencias = 0;
 	double saldoTotal = 0;
 	double saldoCantidad1 = 0;
 	double saldoTotal1 = 0;
@@ -151,12 +152,6 @@ public ResponseEntity<?> createVentas(@Valid @RequestBody VentasDto venta) {
 		
 		saldoCantidad1 = mat.Redondear(saldoCantidad - cantidadFacturada,2);//saldoCantidad1 - cantidadFacturada//totalRegistros == 0? cantidadFacturada:saldoCantidad1 - cantidadFacturada;//saldoCantidad1 - cantidadFacturada;//
 		saldoTotal1 = mat.Redondear(saldoTotal - valorParcial,2);//totalRegistros == 0? totalFacturado:saldoTotal1 - valorParcial;//saldoTotal1 - totalFacturado;
-		System.out.println("aqui");
-		System.out.println(saldoCantidad1);
-		System.out.println(saldoTotal1);
-		System.out.println(totalRegistros1);
-		//precioUnitario = venta.getProductos_facturados().get(i).getCostoPresentacion();
-		//precioUnitario = Math.round(saldoTotal1/saldoCantidad1);
 		
 		ventasRepository.updateExistenciasProductos0(idProducto,cantidadFacturada);
 			
