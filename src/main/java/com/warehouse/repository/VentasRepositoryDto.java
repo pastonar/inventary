@@ -98,7 +98,6 @@ public interface VentasRepositoryDto extends CrudRepository<VentasDto, Long> {
 					 "PRECIO_PRESENTACION = ROUND(:costoPresentacion * (1+(PCTAJE_GANANCIA/100)),0),"+
 					 "COSTO_UNIDAD = ROUND(:costoPresentacion / (existencias * :cantidadComprada),0), "+
 					 "PRECIO_UNIDAD = ROUND((PRECIO_PRESENTACION / (existencias * :cantidadComprada)),0), "+
-					 "saldo_cantidad = ROUND(saldo_cantidad + :cantidadComprada,1), "+
 					 "cantidad_Existente = ROUND(cantidad * existencias,1) "+
 					 "where id_producto = :idProducto ",nativeQuery = true)
 					void updateExistenciasProductos3(Long idProducto,double cantidadComprada,double costoPresentacion);
