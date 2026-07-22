@@ -50,6 +50,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\TipoPerso
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\GrupoClienteController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\personas\Proveedor.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\EstadoEquipo.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\PlanillasDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\VentasController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\productos\EstadoProducto.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\productos\Unidad.java
@@ -68,6 +69,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\UserEntit
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\clientes\Cliente.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\TipoIdentificacionController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\AuthenticationRequest.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\PlanillasRepositoryDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\VentasHeaderControllerDto.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\SostenimientoController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\produccion\Produccion.java
@@ -102,6 +104,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\ClienteCo
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\DetallePlanillaDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\TestRolesController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\PrestamoRepository.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\PlanillasControllerDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\UserEntityController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\PrestamoController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\InventaryApplication.java

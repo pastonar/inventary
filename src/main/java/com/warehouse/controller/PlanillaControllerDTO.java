@@ -35,8 +35,9 @@ public class PlanillaControllerDTO {
 		@Autowired
 		private PlanillaRepositoryDTO planillaRepositoryDTO;
 		
-		@Autowired
-		private PlanillaRepository planillaRepository;
+		
+		  @Autowired private PlanillaRepository planillaRepository;
+		 
 		
 		protected void verifyPlanilla(Integer planillaId) throws
 		 ResourceNotFoundException { PlanillaDTO planilla =
@@ -48,7 +49,7 @@ public class PlanillaControllerDTO {
 		  }
 		  
 		 @PreAuthorize("hasRole('ROLE_ADMIN')")
-		 @GetMapping("/planillasDTO/{planillaId}")
+		 @GetMapping("/planillaDTO/{planillaId}")
 			public ResponseEntity<?> getPlanilla(@PathVariable Integer planillaId) 
 		 {
 				verifyPlanilla(planillaId);
@@ -117,7 +118,7 @@ public class PlanillaControllerDTO {
 		 
 		  // modificar una planilla
 		  @PreAuthorize("hasRole('ROLE_ADMIN')")
-		  @PutMapping("/planillasDTO/{planillaId}") //@RequestMapping(value =
+		  @PutMapping("/planillaDTO/{planillaId}") //@RequestMapping(value =
 		  public ResponseEntity<?> updateplanilla(@RequestBody PlanillaDTO planilla, @PathVariable Integer planillaId) 
 		  { // Save the entity
 		  verifyPlanilla(planillaId); 
@@ -125,7 +126,7 @@ public class PlanillaControllerDTO {
 		  return new ResponseEntity<>(HttpStatus.OK); 
 		  }
 		  
-		  @DeleteMapping("/planillasDTO/{planillaId}")
+		  @DeleteMapping("/planillaDTO/{planillaId}")
 		  @PreAuthorize("hasRole('ROLE_ADMIN')") 
 		  //@RequestMapping(value = "/planillas/{planillaId}", method = RequestMethod.DELETE) public
 		  ResponseEntity<?> deleteplanilla(@PathVariable Integer planillaId) {
