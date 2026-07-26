@@ -68,7 +68,7 @@ import java.time.LocalDate;
 
 	//@Enumerated(EnumType.STRING)
 	@Column(name="estado" )
-	private int estado;
+	private int estado; 
 	
 	@OneToMany(fetch = FetchType.EAGER )
 	@JoinColumn(name = "ID_PLANILLA")
