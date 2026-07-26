@@ -45,7 +45,7 @@ public class DetallePlanilla implements Cloneable
 	private String		observaciones;
 	
 	@Column(name = "horas_trabajadas")
-	private LocalTime horasTrabajadas;
+	private double horasTrabajadas;
 	
 	@Transient
 	private boolean selected;
@@ -156,12 +156,12 @@ public class DetallePlanilla implements Cloneable
 	 */
 
 
-	public LocalTime getHorasTrabajadas() {
+	public double getHorasTrabajadas() {
 		return horasTrabajadas;
 	}
 
 
-	public void setHorasTrabajadas(LocalTime horasTrabajadas) {
+	public void setHorasTrabajadas(double horasTrabajadas) {
 		this.horasTrabajadas = horasTrabajadas;
 	}
 
@@ -173,7 +173,7 @@ public class DetallePlanilla implements Cloneable
 		LocalTime timeOut = detalleplanilla.horaSalida;
 		Duration duracion;
 		duracion= Duration.between(timeIn, timeOut);
-		detalleplanilla.horasTrabajadas =  LocalTime.of(duracion.toHoursPart(), duracion.toMinutesPart(), duracion.toSecondsPart());
+		//detalleplanilla.horasTrabajadas =  LocalTime.of(duracion.toHoursPart(), duracion.toMinutesPart(), duracion.toSecondsPart());
 	}
 
 	

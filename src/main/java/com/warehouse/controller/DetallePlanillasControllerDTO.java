@@ -91,6 +91,11 @@ public class DetallePlanillasControllerDTO {
 				  findByIdDetallePlanilla(idDetallePlanilla);
 		  registroActual.setHoraEntrada(detalleplanilla.getHoraEntrada());
 		  registroActual.setHoraSalida(detalleplanilla.getHoraSalida());
+		  registroActual.setHorasTrabajadas(registroActual.calculateHour());
+		  //registroActual.calculateHour();
+		  //registroActual.tiempoTotal(detalleplanilla);
+		  System.out.println(registroActual.getHorasTrabajadas());
+		  //registroActual.setHorasTrabajadas(null)
 		  detalleplanillaRepositoryDTO.save(registroActual);
 		 
 		return new ResponseEntity<>(HttpStatus.OK);  

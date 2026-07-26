@@ -78,7 +78,7 @@ public class PlanillaController {
 	// obtener planillas por rango de fecha
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/planillaXFecha")
-	@RequestMapping(value = "/planillasXFecha", method = RequestMethod.GET)
+	//@RequestMapping(value = "/planillasXFecha", method = RequestMethod.GET)
 	public ResponseEntity<Iterable<Planilla>> getAllPlanillasByDate(@RequestParam LocalDate fecha1,
 			@RequestParam LocalDate fecha2) {
 		Iterable<Planilla> allPlanillas = planillaRepository.findAllByDate(fecha1, fecha2);
