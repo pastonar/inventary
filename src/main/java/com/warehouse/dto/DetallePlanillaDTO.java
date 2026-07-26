@@ -119,12 +119,10 @@ public class DetallePlanillaDTO implements Cloneable
 			sf = this.horaSalida.getSecond();
 			
 			ht = hf - hi;
-			mt = (mf/60) - (mi/60);
-			st = (sf /3600)- (si/3600);
+			mt = Math.abs((mf/60) - (mi/60));
+			st = Math.abs((sf /3600)- (si/3600));
 			ht = ht + mt + st;
-			int t1 = 	this.horaEntrada.toSecondOfDay();
-			int t2 = 	this.horaSalida.toSecondOfDay();
-			int t3 = t2 - t1;
+			 
 			//this.horasTrabajadas =   LocalDate.ofSecondOfDay(t3);
 		}
 		//totalTime =   this.horaEntrada.until(this.horaSalida, ChronoUnit.HOURS);
