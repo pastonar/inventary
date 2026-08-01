@@ -78,8 +78,7 @@ public class PlanillaController {
 	// obtener planillas por rango de fecha
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/planillaXFecha")
-	//@RequestMapping(value = "/planillasXFecha", method = RequestMethod.GET)
-	public ResponseEntity<Iterable<Planilla>> getAllPlanillasByDate(@RequestParam LocalDate fecha1,
+		public ResponseEntity<Iterable<Planilla>> getAllPlanillasByDate(@RequestParam LocalDate fecha1,
 			@RequestParam LocalDate fecha2) {
 		Iterable<Planilla> allPlanillas = planillaRepository.findAllByDate(fecha1, fecha2);
 		return new ResponseEntity<>(allPlanillas, HttpStatus.OK);
@@ -121,13 +120,17 @@ public class PlanillaController {
 
 	@DeleteMapping("/planillas/{planillaId}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	//@RequestMapping(value = "/planillas/{planillaId}", method = RequestMethod.DELETE)
+	
 	public ResponseEntity<?> deleteplanilla(@PathVariable Integer planillaId) {
 		verifyPlanilla(planillaId);
 		planillaRepository.deleteById((long) planillaId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	
+	
+	
+	
 	/*
 	 * private PlanillaDto EntityToDto(Planilla Planilla) {
 	 * 

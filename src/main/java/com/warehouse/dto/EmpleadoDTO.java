@@ -45,7 +45,7 @@ public class EmpleadoDTO implements Cloneable {
 	@Column(name="tipo_id")
 	private int 	tipoId = 1;
    
-	@Column(name="grupo_trabajo")
+	@Column(name="id_grupo_empleado")
 	private int grupo ;
 	
 	

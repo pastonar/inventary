@@ -45,5 +45,14 @@ public interface PlanillaRepository extends CrudRepository<Planilla, Long> {
 	 */
 	
 	/*@Query
-	public Iterable<Planilla> findAll(LocalDate d1,LocalDate d2);*/
+	public Iterable<Planilla> findAll(LocalDate d1,LocalDate d2);
+	
+	
+	
+	SELECT e.id_empleado,e.tipo_id,e.num_identificacion,e.nombre_completo,count(e.id_empleado) 
+FROM  planillas as p, detalle_planillas as dp , empleados as e
+where p.id_planilla = dp.id_planilla and dp.id_empleado = e.id_empleado and
+p.fecha_elaboracion between '2026-07-26' and '2026-07-26'
+and dp.horas_trabajadas > 0 group by e.id_empleado;
+	*/
 }

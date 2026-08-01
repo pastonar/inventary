@@ -167,7 +167,12 @@ public class EmpleadoControllerDTO {
 		//@PreAuthorize("hasRole('ROLE_ADMIN')")
 		public ResponseEntity<?> updateDetallePlanilla(@RequestBody EmpleadoDTO empleado,
 				   @PathVariable int idEmpleado) 
-{
+		{ /*
+			 * EmpleadoDTO empleadoActual =
+			 * empleadoRepository.findById(empleado.getIdEmpleado());
+			 * empleadoActual.setDireccion(empleado.getDireccion());
+			 * empleadoRepository.save(empleadoActual);
+			 */
 			empleadoRepository.save(empleado);
 			return new ResponseEntity<>(HttpStatus.OK);  
 }

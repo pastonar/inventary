@@ -24,6 +24,7 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\CreateUserDTO.ja
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\PersonaRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\TipoIdentificacionEmpleadoRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\PlanillaController.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\ReporteAsistenciaController.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\ClienteRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\ventas\Ventas.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\VentaHeaderDTO.java
@@ -63,6 +64,8 @@ C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\empleados\Est
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\VentasRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\dto\VentasHeaderDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\UnidadRepository.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\ReporteAsistenciaRepository.java
+C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\domain\planillas\ReporteAsistencia.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\controller\EmpleadoControllerDTO.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\EstadoProductoRepository.java
 C:\sts-4.15.1.RELEASE\inventary\src\main\java\com\warehouse\repository\UserEntityRepository.java
