@@ -140,6 +140,7 @@ public class EmpleadoControllerDTO {
 	
 	
 	//Actualizar un empleado OK
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PutMapping("/empleadosDTO/{idEmpleado}")
 	@CrossOrigin(origins = "*") 
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -162,6 +163,7 @@ public class EmpleadoControllerDTO {
 	}
 
 	//Actualizar un empleado OK
+	 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 		@PatchMapping("/empleadosDTO/{idEmpleado}")
 		@CrossOrigin(origins = "*") 
 		//@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -178,6 +180,7 @@ public class EmpleadoControllerDTO {
 }
 	
 	//Borrar un empleado OK
+	 @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping(value="/empleadosDTO/{idEmpleado}")
 	public ResponseEntity<?> deleteProducto(@PathVariable int idEmpleado) {
 		verifyEquipo(idEmpleado);
